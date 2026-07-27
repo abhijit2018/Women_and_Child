@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 440 550">
+  <rect width="440" height="550" fill="#F4EAF9"/>
+  <circle cx="220" cy="230" r="140" fill="#F8EEF4"/>
+  <circle cx="220" cy="230" r="90" fill="#3B0F63"/>
+  <path d="M220 150c44 0 80 36 80 80 0 41-31.7 75-72 79.4V330h-16v-20.6c-40.3-4.4-72-38.4-72-79.4 0-44 36-80 80-80Z" fill="#CFA04C"/>
+  <text x="220" y="470" text-anchor="middle" font-family="sans-serif" font-size="16" fill="#746570">
+    Replace public/images/hero-main.svg with your image
+  </text>
+</svg>
