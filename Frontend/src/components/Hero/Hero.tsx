@@ -30,9 +30,10 @@ const HERO_IMAGES_Top: SlideImage[] = [
 ];
 
 const HERO_IMAGES: CarouselImage[] = [
-  { src: '/images/hero-main.svg', alt: 'Portal support illustration, slide 1' },
-  { src: '/images/hero-2.svg', alt: 'Portal support illustration, slide 2' },
-  { src: '/images/hero-3.svg', alt: 'Portal support illustration, slide 3' },
+  { src: '/images/a.jpeg', alt: 'Portal support illustration, slide 1' },
+  { src: '/images/b.jpeg', alt: 'Portal support illustration, slide 2' },
+  { src: '/images/c.jpeg', alt: 'Portal support illustration, slide 3' },
+  { src: '/images/d.jpeg', alt: 'Portal support illustration, slide 4' },
 ];
 
 interface Service {
@@ -117,7 +118,8 @@ function Hero() {
           <div className="hero__media-frame">
             <Carousel
               images={HERO_IMAGES}
-              intervalMs={3000}
+              intervalMs={5000}
+              
             />
           </div>
         </div>
