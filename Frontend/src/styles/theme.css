@@ -1,0 +1,162 @@
+/*
+  Women PORTAL — DESIGN TOKENS
+  ------------------------------------------------------------------
+  Concept: "Quiet Strength" — a plum-and-sage palette borrowed from
+  dusk gardens rather than corporate blues or clinical pastels.
+  Deep plum reads as dignified and grounded (not saccharine-pink,
+  which would undercut the seriousness of the portal's purpose).
+  Sage/teal signals safety and calm competence, the way a hospital
+  or civic institution should feel trustworthy without being cold.
+  A muted gold accent is used sparingly, for warmth on key actions.
+
+  Type: Fraunces (a warm, slightly humanist serif with soft ink-trap
+  curves) carries the "comforting" half of the brief in headlines.
+  Inter carries the "professional" half — legible, neutral, at home
+  in forms and dense UI.
+  ------------------------------------------------------------------
+*/
+
+:root {
+  /* ========================================
+     Core Color Palette
+  ======================================== */
+
+  --color-plum-900: #5F294C;
+  --color-plum-800: #70335A;
+  --color-plum-700: #993366;
+  --color-plum-600: #853C6B;
+  --color-plum-500: #A85D8D;
+  --color-plum-400: #C887AF;
+  --color-plum-200: #EFD9E7;
+  --color-plum-100: #ecc7dd;
+
+  --color-sage-700: #356459;
+  --color-sage-600: #46796C;
+  --color-sage-500: #5C9485;
+  --color-sage-100: #EDF8F4;
+
+  --color-gold-600: #B8872F;
+  --color-gold-500: #CFA04C;
+  --color-gold-200: #F3E1B6;
+
+  --color-ivory-50: #FFFFFF;
+  --color-ivory-100: #FFFDFC;
+
+  --color-blush-100: #FCF6F9;
+  --color-blush-200: #F4E2EC;
+
+  --color-ink-900: #2F2230;
+  --color-ink-700: #534351;
+  --color-ink-500: #746570;
+  --color-ink-200: #E9DCE4;
+
+  --color-danger: #B83F55;
+  --color-danger-bg: #FCEEF1;
+
+  --color-success: #46796C;
+
+  --color-white: #FFFFFF;
+
+  /* ========================================
+     Semantic Colors
+  ======================================== */
+
+  --color-bg: #FFFDFC;
+
+  --color-surface: #FFFFFF;
+
+  --color-surface-soft: #FCF6F9;
+
+  --color-border: #E9DCE4;
+
+  --color-text-primary: #2F2230;
+
+  --color-text-secondary: #746570;
+
+  --color-text-inverse: #FFFFFF;
+
+  --color-brand: #853C6B;
+
+  --color-brand-strong: #993366;
+
+  --color-brand-soft: #F8EEF4;
+
+  --color-trust: #46796C;
+
+  --color-trust-strong: #356459;
+
+  --color-trust-soft: #EDF8F4;
+
+  --color-accent: #CFA04C;
+
+  --color-accent-strong: #B8872F;
+
+  --color-accent-soft: #F3E1B6;
+
+  /* ========================================
+     Typography
+  ======================================== */
+
+  --font-display: 'Fraunces', 'Iowan Old Style', Georgia, serif;
+
+  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+  --fs-h1: clamp(2.25rem, 1.7rem + 2.4vw, 3.5rem);
+  --fs-h2: clamp(1.5rem, 1.2rem + 1.2vw, 2.25rem);
+  --fs-h3: 1.375rem;
+  --fs-body-lg: 1.125rem;
+  --fs-body: 1rem;
+  --fs-small: 0.875rem;
+  --fs-caption: 0.75rem;
+
+  --lh-tight: 1.15;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.7;
+
+  /* ========================================
+     Layout
+  ======================================== */
+
+  --header-height: 126px;
+  --subnav-height: 48px;
+  --max-width: 1180px;
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  /* ========================================
+     Shadows
+  ======================================== */
+
+  --shadow-header: 0 2px 18px rgba(133, 60, 107, 0.12);
+
+  --shadow-card: 0 10px 30px rgba(133, 60, 107, 0.08);
+
+  --shadow-focus: 0 0 0 3px rgba(133, 60, 107, 0.22);
+
+  /* ========================================
+     Motion
+  ======================================== */
+
+  --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+
+  --duration-fast: 150ms;
+
+  --duration-base: 240ms;
+}
+
+/* ========================================
+   Reduced Motion
+======================================== */
+
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
