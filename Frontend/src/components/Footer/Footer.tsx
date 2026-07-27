@@ -22,7 +22,7 @@ function Footer() {
 
         <div className="site-footer__helpline">
           <span className="site-footer__helpline-label">24×7 Helpline</span>
-          <span className="site-footer__helpline-number">1800-XXX-XXXX</span>
+          <span className="site-footer__helpline-number">1800-000-0000</span>
         </div>
       </div>
 

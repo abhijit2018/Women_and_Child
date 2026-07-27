@@ -318,30 +318,10 @@ useEffect(() => {
         />
       </div>
 
-     <div className="form-field">
-  <label>
-    1.3 State / রাজ্য <span>*</span>
-  </label>
-
-  <select
-    name="state"
-    defaultValue=""
-  >
-    <option value="" disabled>
-      Select State / রাজ্য নির্বাচন করুন
-    </option>
-
-    <option value="West Bengal">West Bengal</option>
-    <option value="Bihar">Bihar</option>
-    <option value="Jharkhand">Jharkhand</option>
-    <option value="Odisha">Odisha</option>
-    <option value="Assam">Assam</option>
-  </select>
-</div>
 
 <div className="form-field">
   <label>
-    1.4 District / জেলা <span>*</span>
+    1.3 District / জেলা <span>*</span>
   </label>
 
   <select
@@ -357,6 +337,27 @@ useEffect(() => {
     <option value="North 24 Parganas">North 24 Parganas</option>
     <option value="South 24 Parganas">South 24 Parganas</option>
     <option value="Hooghly">Hooghly</option>
+  </select>
+</div>
+
+ <div className="form-field">
+  <label>
+    1.4 Police Station / থানা <span>*</span>
+  </label>
+
+  <select
+    name="ps"
+    defaultValue=""
+  >
+    <option value="" disabled>
+      Select Police Station / থানা নির্বাচন করুন
+    </option>
+
+    <option value="West Bengal">West Bengal</option>
+    <option value="Bihar">Bihar</option>
+    <option value="Jharkhand">Jharkhand</option>
+    <option value="Odisha">Odisha</option>
+    <option value="Assam">Assam</option>
   </select>
 </div>
 
@@ -492,30 +493,10 @@ useEffect(() => {
         />
       </div>
 
-      <div className="form-field">
-  <label>
-    2.4 State / রাজ্য <span>*</span>
-  </label>
-
-  <select
-    name="state"
-    defaultValue=""
-  >
-    <option value="" disabled>
-      Select State / রাজ্য নির্বাচন করুন
-    </option>
-
-    <option value="West Bengal">West Bengal</option>
-    <option value="Bihar">Bihar</option>
-    <option value="Jharkhand">Jharkhand</option>
-    <option value="Odisha">Odisha</option>
-    <option value="Assam">Assam</option>
-  </select>
-</div>
 
 <div className="form-field">
   <label>
-    2.5 District / জেলা <span>*</span>
+    2.4 District / জেলা <span>*</span>
   </label>
 
   <select
@@ -531,6 +512,26 @@ useEffect(() => {
     <option value="North 24 Parganas">North 24 Parganas</option>
     <option value="South 24 Parganas">South 24 Parganas</option>
     <option value="Hooghly">Hooghly</option>
+  </select>
+</div>
+ <div className="form-field">
+  <label>
+    2.5 Police Station / থানা <span>*</span>
+  </label>
+
+  <select
+    name="ps"
+    defaultValue=""
+  >
+    <option value="" disabled>
+      Select Police Station / থানা নির্বাচন করুন
+    </option>
+
+    <option value="West Bengal">West Bengal</option>
+    <option value="Bihar">Bihar</option>
+    <option value="Jharkhand">Jharkhand</option>
+    <option value="Odisha">Odisha</option>
+    <option value="Assam">Assam</option>
   </select>
 </div>
 
@@ -687,11 +688,23 @@ useEffect(() => {
         name="incidentTime"
       />
     </div>
+<div className="form-field">
+  <label>
+    3.3 Place of Occurrence / ঘটনার স্থান <span>*</span>
+  </label>
 
+  <input
+    type="text"
+    name="placeOfOccurrence"
+    placeholder="Enter Place of Occurrence / ঘটনার স্থান লিখুন"
+    value={values.placeOfOccurrence}
+    onChange={handleChange}
+  />
+</div>
     {/* Full Details */}
     <div className="form-field full-width">
       <label>
-        3.3 Full Details of the Incident / ঘটনার সম্পূর্ণ বিবরণ <span>*</span>
+        3.4 Full Details of the Incident / ঘটনার সম্পূর্ণ বিবরণ <span>*</span>
       </label>
 
       <textarea
