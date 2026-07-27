@@ -1,0 +1,104 @@
+.sub-nav {
+  position: fixed;
+  top: var(--header-height);
+  left: 0;
+  right: 0;
+  z-index: 90;
+  height: var(--subnav-height);
+  background: var(--color-plum-700);
+  box-shadow: 0 4px 14px rgba(46, 21, 38, 0.12);
+}
+
+.sub-nav__list {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 34px;
+  list-style: none;
+  margin: 0;
+  padding-left: 24px;
+  padding-right: 24px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.sub-nav__list::-webkit-scrollbar {
+  display: none;
+}
+
+.sub-nav__item {
+  position: relative;
+  flex-shrink: 0;
+}
+
+.sub-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: none;
+  padding: 6px 2px;
+  font-family: var(--font-body);
+  font-size: var(--fs-small);
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--color-text-inverse);
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color var(--duration-fast) var(--ease-standard);
+}
+
+.sub-nav__link:hover {
+  color: var(--color-accent-soft);
+}
+
+.sub-nav__chevron {
+  transition: transform var(--duration-fast) var(--ease-standard);
+}
+
+.sub-nav__chevron--open {
+  transform: rotate(180deg);
+}
+
+.sub-nav__dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 200px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-card);
+  padding: 8px;
+  list-style: none;
+  margin: 0;
+  z-index: 95;
+}
+
+.sub-nav__dropdown-link {
+  display: block;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: var(--fs-small);
+  font-weight: 500;
+  color: var(--color-text-primary);
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background-color var(--duration-fast) var(--ease-standard),
+    color var(--duration-fast) var(--ease-standard);
+}
+
+.sub-nav__dropdown-link:hover {
+  background: var(--color-brand-soft);
+  color: var(--color-brand-strong);
+}
+
+@media (max-width: 860px) {
+  .sub-nav__list {
+    justify-content: flex-start;
+    gap: 24px;
+  }
+}
