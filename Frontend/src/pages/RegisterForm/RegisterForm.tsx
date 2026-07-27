@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import FormHeader from '../../components/FormHeader/FormHeader';
 import Footer from '../../components/Footer/Footer';
@@ -47,6 +47,29 @@ function RegisterForm() {
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [status, setStatus] = useState<FormStatus>('idle');
+  const [captcha, setCaptcha] = useState('');
+  const [captchaInput, setCaptchaInput] = useState('');
+  const [captchaError, setCaptchaError] = useState('');
+  const [isCaptchaValid, setIsCaptchaValid] = useState(false);
+
+function generateCaptcha() {
+  const chars =
+    "ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789";
+
+  let code = "";
+
+  for (let i = 0; i < 6; i++) {
+    code += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+
+  setCaptcha(code);
+  setCaptchaInput("");
+  setIsCaptchaValid(false);
+}
+
+useEffect(() => {
+  generateCaptcha();
+}, []);
 
   function handleChange(e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) {
     const { name, value, type } = e.target;
@@ -629,6 +652,151 @@ function RegisterForm() {
     </div>
 
   </div>
+
+    {/* SECTION 3 */}
+
+<div className="form-section">
+
+  <div className="section-title">
+    <span>3.</span>
+    <span>Details of the Incident / ঘটনার বিবরণ</span>
+  </div>
+
+  <div className="form-grid">
+
+    {/* Date of Incident */}
+    <div className="form-field">
+      <label>
+        3.1 Date of Incident / ঘটনার তারিখ <span>*</span>
+      </label>
+
+      <input
+        type="date"
+        name="incidentDate"
+      />
+    </div>
+
+    {/* Time of Incident */}
+    <div className="form-field">
+      <label>
+        3.2 Time of Incident / ঘটনার সময় <span>*</span>
+      </label>
+
+      <input
+        type="time"
+        name="incidentTime"
+      />
+    </div>
+
+    {/* Full Details */}
+    <div className="form-field full-width">
+      <label>
+        3.3 Full Details of the Incident / ঘটনার সম্পূর্ণ বিবরণ <span>*</span>
+      </label>
+
+      <textarea
+        name="incidentDetails"
+        rows={6}
+        placeholder="Describe the incident in detail / ঘটনার সম্পূর্ণ বিবরণ লিখুন"
+      />
+    </div>
+
+  </div>
+
+</div>
+
+{/* Declaration */}
+
+<div className="form-bottom">
+
+  <label className="form-checkbox">
+    <input
+      type="checkbox"
+      name="consent"
+      checked={values.consent}
+      onChange={handleChange}
+    />
+
+    <span>
+      I hereby declare that the information furnished above is true to the best
+      of my knowledge.
+      <br />
+      আমি এই মর্মে ঘোষণা করছি যে, উপরোক্ত প্রদত্ত তথ্য আমার জ্ঞান ও বিশ্বাস
+      অনুযায়ী সত্য।
+    </span>
+  </label>
+
+  {errors.consent && (
+    <span className="form-field__error">
+      {errors.consent}
+    </span>
+  )}
+
+  {/* CAPTCHA */}
+
+<div className="captcha-container">
+
+  <label className="captcha-label">
+    Please enter the text exactly as shown in the box.
+    <span>*</span>
+    <br />
+    <small>বক্সে প্রদর্শিত লেখাটি হুবহু লিখুন।</small>
+  </label>
+
+  <div className="captcha-row">
+
+    <div className="captcha-code">
+      {captcha}
+    </div>
+
+    <button
+      type="button"
+      className="captcha-refresh"
+      onClick={generateCaptcha}
+    >
+      ↻
+    </button>
+
+    <input
+  type="text"
+  placeholder="Enter CAPTCHA"
+  value={captchaInput}
+  onChange={(e) => {
+    const value = e.target.value;
+    setCaptchaInput(value);
+
+    if (value.trim() === captcha) {
+      setIsCaptchaValid(true);
+      setCaptchaError("");
+    } else {
+      setIsCaptchaValid(false);
+    }
+  }}
+/>
+
+  </div>
+
+  {captchaError && (
+    <span className="form-field__error">
+      {captchaError}
+    </span>
+  )}
+
+</div>
+
+  {/* Submit */}
+
+  <div className="form-submit">
+    <Button
+      type="submit"
+      variant="primary"
+      size="lg"
+    >
+      Submit Complaint
+    </Button>
+  </div>
+
+</div>
 
 </form>
         </div>
