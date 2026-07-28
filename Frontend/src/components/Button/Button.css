@@ -1,0 +1,132 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+
+  min-width: 240px;
+  height: 58px;
+  padding: 0 32px;
+
+  border-radius: 14px;
+  border: 2px solid transparent;
+
+  font-family: var(--font-body);
+  font-size: 1rem;
+  font-weight: 600;
+
+  cursor: pointer;
+  text-decoration: none;
+
+  transition: all var(--duration-base) var(--ease-standard);
+}
+
+/* ======================
+   PRIMARY BUTTON
+====================== */
+
+.btn--primary {
+  background: linear-gradient(
+    135deg,
+    var(--color-plum-700),
+    var(--color-plum-600)
+  );
+
+  color: var(--color-text-inverse);
+
+  box-shadow: 0 10px 22px rgba(92, 42, 77, .18);
+}
+
+.btn--primary:hover {
+  transform: translateY(-3px);
+
+  background: linear-gradient(
+    135deg,
+    var(--color-plum-800),
+    var(--color-plum-700)
+  );
+
+  box-shadow: 0 14px 28px rgba(92, 42, 77, .25);
+}
+
+/* ======================
+   GHOST BUTTON
+====================== */
+
+.btn--ghost {
+  background: var(--color-surface);
+
+  color: var(--color-brand);
+
+  border: 2px solid var(--color-plum-600);
+}
+
+.btn--ghost:hover {
+  background: var(--color-brand-soft);
+
+  color: var(--color-brand-strong);
+
+  border-color: var(--color-plum-700);
+
+  transform: translateY(-3px);
+
+  box-shadow: var(--shadow-card);
+}
+
+/* ======================
+   ICON
+====================== */
+
+.btn svg {
+  width: 24px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+/* If using Lucide */
+
+.btn svg * {
+  stroke-width: 2;
+}
+
+/* ======================
+   SIZES
+====================== */
+
+.btn--sm {
+  min-width: 130px;
+  height: 46px;
+  font-size: .95rem;
+}
+
+.btn--lg {
+  min-width: 250px;
+  height: 60px;
+  font-size: 1.05rem;
+}
+
+.btn:active {
+  transform: scale(.98);
+}
+
+.btn:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  transform: none;
+  box-shadow: none;
+}
+
+@media (max-width:768px) {
+
+  .btn {
+    width: 100%;
+    min-width: unset;
+  }
+
+}
