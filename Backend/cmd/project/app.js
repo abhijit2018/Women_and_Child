@@ -22,8 +22,11 @@ app.use(
 );
 const captureRequestInfo = require("../../pkg/utils/middleware");
 app.use(captureRequestInfo);
-const masterDataRoutes = require("../../api/v1/user");
-app.use("/api/v1", masterDataRoutes);
+const userDataRoutes = require("../../api/v1/user");
+app.use("/api/v1", userDataRoutes);
+
+const typesOfCrimeRoutes = require("../../api/v1/typesOfCrime");
+app.use("/api/v1", typesOfCrimeRoutes); 
 
 
 const uploadsPath = path.join(__dirname, "../../web/uploads");
