@@ -11,7 +11,6 @@ interface ButtonProps {
   type?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
   onClick?: () => void;
   fullWidth?: boolean;
-  disabled?: boolean;
 }
 
 /**
@@ -25,7 +24,6 @@ function Button({
   type = 'button',
   onClick,
   fullWidth = false,
-  disabled = false,
 }: ButtonProps) {
   const classes = [
     'btn',
@@ -37,7 +35,7 @@ function Button({
     .join(' ');
 
   return (
-    <button type={type} className={classes} onClick={onClick} disabled={disabled}>
+    <button type={type} className={classes} onClick={onClick}>
       {children}
     </button>
   );

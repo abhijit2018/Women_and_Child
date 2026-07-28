@@ -114,14 +114,6 @@
   box-shadow: var(--shadow-focus);
 }
 
-.btn:disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-  pointer-events: none;
-  transform: none;
-  box-shadow: none;
-}
-
 @media (max-width:768px) {
 
   .btn {
