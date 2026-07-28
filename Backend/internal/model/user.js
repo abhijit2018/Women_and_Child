@@ -199,14 +199,14 @@ const userDataSchema = new mongoose.Schema(
 /*                                   Indexes                                  */
 /* -------------------------------------------------------------------------- */
 
-userDataSchema.index(
+/**userDataSchema.index(
   {
     user_name: 1
   },
   {
     unique: true
   }
-);
+);**/
 
 userDataSchema.index({
   status: 1
