@@ -91,7 +91,7 @@ function Hero() {
           </h1>
 
           <p className="hero__body">
-            Abhaya Portal connects you with verified support services,
+            Women Portal connects you with verified support services,
             guidance, and a straightforward way to report concerns —
             handled with care, confidentiality, and by people trained to
             listen.
