@@ -1,15 +1,38 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home/Home';
-import RegisterForm from '../pages/RegisterForm/RegisterForm';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
-function AppRoutes() {
+import MainLayout from "../layouts/MainLayout";
+import HomePage from "../features/home/pages/HomePage";
+
+const MessagePage = () => {
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/get-support" element={<RegisterForm />} />
-      <Route path="*" element={<Home />} />
-    </Routes>
+    <div style={{ padding: "40px", textAlign: "center" }}>
+      <h2>Hello World!</h2>
+      <p>This is a test page.</p>
+    </div>
   );
-}
+};
+
+const AppRoutes = () => {
+  return (
+    <BrowserRouter>
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route
+            path="/"
+            element={<HomePage />}
+          />
+          <Route
+            path="/message"
+            element={<MessagePage />}
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+  );
+};
 
 export default AppRoutes;
