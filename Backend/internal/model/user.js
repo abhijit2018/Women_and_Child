@@ -8,8 +8,8 @@ const phoneDetailSchema = new mongoose.Schema(
   {
     phone_no: {
       type: String,
-      trim: true,
-      maxlength: 15
+      trim: true
+      
     }
   },
   {
@@ -78,8 +78,7 @@ const userDataSchema = new mongoose.Schema(
 
     gender: {
       type: String,
-      enum: ["Male", "Female", "Other"],
-      default: "Male"
+      trim: true
     },
 
     phone_details: {
