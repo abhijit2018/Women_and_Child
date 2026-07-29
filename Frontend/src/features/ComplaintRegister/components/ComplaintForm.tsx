@@ -1,50 +1,9 @@
-// import { Link } from "react-router-dom";
-// import LogoMark from "../../../assets/logo-mark";
-// import LogoPartner from "../../../assets/logo-partner";
-// import "../../../styles/FormHeader.css";
-
-// interface FormHeaderProps {
-//   formName: string;
-// }
-
-// const FormHeader = ({ formName }: FormHeaderProps) => {
-//   return (
-//     <header className="form-header">
-//       <div className="form-header__inner container">
-
-//         <Link
-//           to="/"
-//           className="form-header__side form-header__side--left"
-//           aria-label="Home"
-//         >
-//           <LogoMark size={48} />
-//         </Link>
-
-//         <div className="form-header__center">
-//           <h1 className="form-header__title">
-//             {formName}
-//           </h1>
-//         </div>
-
-//         <div className="form-header__side form-header__side--right">
-//           <LogoPartner size={48} />
-//         </div>
-
-//       </div>
-//     </header>
-//   );
-// };
-
-// export default FormHeader;
-
-
 
 import { useState, useEffect } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import Button from '../../../components/ui/Button/Button';
 import { validateField, sanitizeText } from '../utils/complaintHelpers';
 import type { FieldRules } from '../utils/complaintHelpers';
-
 import "../../../styles/RegisterForm.css";
 
 interface FormValues {
@@ -728,7 +687,7 @@ function RegisterForm() {
             <div className="form-section">
               <div className="section-title">
                 <span>3.</span>
-                <span>Details of the Incident / ঘটনার বিবরণ</span>
+                <span>Details of the Incident / ঘটনার বিবরণ :</span>
               </div>
 
               <div className="form-grid">

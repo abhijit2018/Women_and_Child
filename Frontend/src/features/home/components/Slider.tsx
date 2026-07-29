@@ -101,7 +101,7 @@ function Slider() {
             <Button
               variant="primary"
               size="lg"
-              onClick={() => navigate("/get-support")}
+              onClick={() => navigate("/onlinecomplaints")}
             >
               <HiOutlineDocumentText />
               File a Complaint
@@ -148,7 +148,7 @@ function Slider() {
 
                 <button
                   className="service-link"
-                  onClick={() => navigate('/get-support')}
+                  onClick={() => navigate('/onlinecomplaints')}
                 >
                   Know More →
                 </button>
