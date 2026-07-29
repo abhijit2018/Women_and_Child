@@ -1,15 +1,63 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home/Home';
-import RegisterForm from '../pages/RegisterForm/RegisterForm';
+// import {
+//   BrowserRouter,
+//   Routes,
+//   Route,
+// } from "react-router-dom";
 
-function AppRoutes() {
+// import MainLayout from "../layouts/MainLayout";
+// import HomePage from "../features/home/pages/HomePage";
+// import ComplaintPage from"../features/ComplaintRegister/pages/ComplaintPage";
+
+
+// const AppRoutes = () => {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         <Route element={<MainLayout />}>
+//           <Route
+//             path="/"
+//             element={<HomePage />}
+//           />
+//           <Route
+//             path="/onlinecomplaints"
+//             element={<ComplaintPage />}
+//           />
+//         </Route>
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// };
+
+// export default AppRoutes;
+
+
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import MainLayout from "../layouts/MainLayout";
+import HomePage from "../features/home/pages/HomePage";
+import ComplaintPage from"../features/ComplaintRegister/pages/ComplaintPage";
+
+function AppContent() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/get-support" element={<RegisterForm />} />
-      <Route path="*" element={<Home />} />
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/onlinecomplaints" element={<ComplaintPage />} />
+      </Route>
     </Routes>
   );
 }
 
-export default AppRoutes;
+export default function AppRoutes() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
+}
