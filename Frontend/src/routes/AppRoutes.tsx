@@ -6,15 +6,8 @@ import {
 
 import MainLayout from "../layouts/MainLayout";
 import HomePage from "../features/home/pages/HomePage";
+import ComplaintPage from"../features/ComplaintRegister/pages/ComplaintPage";
 
-const MessagePage = () => {
-  return (
-    <div style={{ padding: "40px", textAlign: "center" }}>
-      <h2>Hello World!</h2>
-      <p>This is a test page.</p>
-    </div>
-  );
-};
 
 const AppRoutes = () => {
   return (
@@ -26,8 +19,8 @@ const AppRoutes = () => {
             element={<HomePage />}
           />
           <Route
-            path="/message"
-            element={<MessagePage />}
+            path="/onlinecomplaints"
+            element={<ComplaintPage />}
           />
         </Route>
       </Routes>
