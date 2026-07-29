@@ -1,15 +1,33 @@
-import { Routes, Route } from 'react-router-dom';
-import Home from '../pages/Home/Home';
-import RegisterForm from '../pages/RegisterForm/RegisterForm';
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+} from "react-router-dom";
 
-function AppRoutes() {
+
+import HomePage from "../features/home/pages/HomePage";
+
+
+const AppRoutes = () => {
+
   return (
-    <Routes>
-      <Route path="/" element={<Home />} />
-      <Route path="/get-support" element={<RegisterForm />} />
-      <Route path="*" element={<Home />} />
-    </Routes>
+
+    <BrowserRouter>
+
+      <Routes>
+
+        <Route
+          path="/"
+          element={<HomePage />}
+        />
+
+      </Routes>
+
+    </BrowserRouter>
+
   );
-}
+
+};
+
 
 export default AppRoutes;

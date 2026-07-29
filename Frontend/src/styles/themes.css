@@ -1,0 +1,101 @@
+/* ===========================================
+   Light Theme (Default)
+=========================================== */
+
+:root,
+[data-theme="light"] {
+  --body-bg: #f5f7fb;
+  --card-bg: #ffffff;
+  --header-bg: #ffffff;
+  --footer-bg: #212529;
+
+  --text-primary: #212529;
+  --text-secondary: #6c757d;
+  --text-light: #ffffff;
+
+  --border-color: #dee2e6;
+
+  --primary-color: #0d6efd;
+  --secondary-color: #6c757d;
+
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 20px rgba(0, 0, 0, 0.18);
+}
+
+/* ===========================================
+   Dark Theme
+=========================================== */
+
+[data-theme="dark"] {
+  --body-bg: #121212;
+  --card-bg: #1e1e1e;
+  --header-bg: #1a1a1a;
+  --footer-bg: #0f0f0f;
+
+  --text-primary: #ffffff;
+  --text-secondary: #b0b0b0;
+  --text-light: #ffffff;
+
+  --border-color: #343a40;
+
+  --primary-color: #4d9dff;
+  --secondary-color: #9aa0a6;
+
+  --shadow-sm: 0 2px 6px rgba(255, 255, 255, 0.05);
+  --shadow-md: 0 4px 12px rgba(255, 255, 255, 0.08);
+  --shadow-lg: 0 8px 20px rgba(255, 255, 255, 0.12);
+}
+
+/* ===========================================
+   Global Theme Styles
+=========================================== */
+
+body {
+  background: var(--body-bg);
+  color: var(--text-primary);
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
+}
+
+header {
+  background: var(--header-bg);
+}
+
+footer {
+  background: var(--footer-bg);
+  color: var(--text-light);
+}
+
+.card {
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input,
+textarea,
+select {
+  background: var(--card-bg);
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+}
+
+button {
+  transition: all 0.3s ease;
+}
