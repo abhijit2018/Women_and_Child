@@ -1,0 +1,116 @@
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  z-index: 100;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: var(--shadow-header);
+}
+
+.site-header__inner {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 10px; 
+}
+
+
+.site-header__brand {
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+/* Left Logo */
+.site-header__logo {
+  width: 96px;
+  height: 115px;
+  object-fit: contain;
+  display: block;
+  margin-top: -8px;
+}
+
+.site-header__divider {
+  width: 2px;
+  height: 92px;
+  background: linear-gradient(
+    180deg,
+    transparent,
+    var(--color-accent),
+    transparent
+  );
+  opacity: 0.9;
+}
+
+.site-header__name {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.7rem;
+  letter-spacing: 0.02em;
+  color: var(--color-brand-strong);
+}
+
+.site-header__right {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+/* Right Logo */
+.site-header__partner-logo {
+  width: 96px;
+  height: 115px;
+  object-fit: contain;
+  display: block;
+  margin-top: -8px;
+}
+
+/* Login Button */
+.site-header__right .btn {
+  padding: 12px 28px;
+  font-size: 1rem;
+  margin-top: -8px;
+}
+
+/* ===========================
+   Mobile
+=========================== */
+
+@media (max-width: 560px) {
+
+  .site-header__logo {
+    width: 64px;
+    height: 76px;
+  }
+
+  .site-header__partner-logo {
+    display: none;
+  }
+
+  .site-header__name {
+    font-size: 1.15rem;
+  }
+
+  .site-header__brand {
+    gap: 14px;
+  }
+
+  .site-header__divider {
+    height: 34px;
+  }
+
+  .site-header__right {
+    margin-left: auto;
+  }
+
+  .site-header__right .btn {
+    padding: 10px 20px;
+    font-size: 0.9rem;
+  }
+}
