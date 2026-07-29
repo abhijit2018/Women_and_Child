@@ -1,13 +1,19 @@
 const bcrypt = require("bcrypt");
 const repository = require("../repository/user");
 const { encryptStringByChar, decryptStringByChar } = require('../../pkg/utils/encrypt_decrypt');
+const fs = require("fs");
+const path = require("path");
+const mongoose = require('mongoose');
 
 
 /**
  * Add / Update User
  */
-exports.add = async (data) => {
+exports.add = async (data, files) => {
   try {
+    if (!data.prefix)
+      throw new Error("prefix is required.");
+
     if (!data.first_name)
       throw new Error("First Name is required.");
 
@@ -23,6 +29,7 @@ exports.add = async (data) => {
     /* ---------------- Full Name ---------------- */
 
     data.full_name = [
+      data.prefix,
       data.first_name,
       data.middle_name,
       data.last_name,
@@ -31,6 +38,10 @@ exports.add = async (data) => {
       .join(" ");
 
     /* ---------------- Encrypt Before Duplicate Check ---------------- */
+
+    const encryptedPrefix = await encryptStringByChar(
+      data.prefix
+    );
 
     const encryptedFirstName = await encryptStringByChar(
       data.first_name
@@ -48,15 +59,25 @@ exports.add = async (data) => {
       data.full_name
     );
 
+    const encryptedNickName = data.nick_name
+    ? await encryptStringByChar(data.nick_name)
+    : "";
+
+    data.nick_name = encryptedNickName;
+
+    const encryptedGender = data.gender
+    ? await encryptStringByChar(data.gender)
+    : "";
+
+    data.gender = encryptedGender;
+
     const encryptedUserName = await encryptStringByChar(
       data.user_name
     );
 
     /* ---------------- Username ---------------- */
 
-    const userName = await repository.findByUserName(
-      encryptedUserName
-    );
+    const userName = await repository.findByUserName(data.user_name);
 
     if (
       userName &&
@@ -67,56 +88,49 @@ exports.add = async (data) => {
 
     /* ---------------- Phone ---------------- */
 
-    if (
-      data.phone_details &&
-      data.phone_details.length > 0 &&
-      data.phone_details[0].phone_no
-    ) {
-      const encryptedPhone = await encryptStringByChar(
-        data.phone_details[0].phone_no
-      );
+    if (Array.isArray(data.phone_details)) {
 
-      const phone = await repository.findByPhone(
-        encryptedPhone
-      );
+      for (const phone of data.phone_details) {
 
-      if (
-        phone &&
-        (!data._id || phone._id.toString() !== data._id)
-      ) {
-        throw new Error("Phone Number already exists.");
+          if (!phone.phone_no) continue;
+
+          const exists = await repository.findByPhone(phone.phone_no);
+
+          if (
+              exists &&
+              (!data._id || exists._id.toString() !== data._id)
+          ) {
+              throw new Error("Phone Number already exists.");
+          }
+
+          phone.phone_no = await encryptStringByChar(phone.phone_no);
       }
-
-      data.phone_details[0].phone_no = encryptedPhone;
-    }
+  }
 
     /* ---------------- Email ---------------- */
 
-    if (
-      data.email_details &&
-      data.email_details.length > 0 &&
-      data.email_details[0].email_id
-    ) {
-      const encryptedEmail = await encryptStringByChar(
-        data.email_details[0].email_id
-      );
+    if (Array.isArray(data.email_details)) {
 
-      const email = await repository.findByEmail(
-        encryptedEmail
-      );
+        for (const email of data.email_details) {
 
-      if (
-        email &&
-        (!data._id || email._id.toString() !== data._id)
-      ) {
-        throw new Error("Email already exists.");
-      }
+            if (!email.email_id) continue;
 
-      data.email_details[0].email_id = encryptedEmail;
+            const exists = await repository.findByEmail(email.email_id);
+
+            if (
+                exists &&
+                (!data._id || exists._id.toString() !== data._id)
+            ) {
+                throw new Error("Email already exists.");
+            }
+
+            email.email_id = await encryptStringByChar(email.email_id);
+        }
     }
 
     /* ---------------- Encrypt User Fields ---------------- */
 
+    data.prefix = encryptedPrefix;
     data.first_name = encryptedFirstName;
     data.middle_name = encryptedMiddleName;
     data.last_name = encryptedLastName;
@@ -138,6 +152,43 @@ exports.add = async (data) => {
     if (!data._id) {
       data.created_date_time = new Date();
     }
+
+    const profileLinks = [];
+  const signatureLinks = [];
+
+  const profileDir = "web/uploads/profile/";
+  const signatureDir = "web/uploads/signature/";
+
+
+  if (!fs.existsSync(profileDir)) fs.mkdirSync(profileDir, { recursive: true });
+  if (!fs.existsSync(signatureDir)) fs.mkdirSync(signatureDir, { recursive: true });
+
+
+  for (const file of (files || [])) {
+    const filename = Date.now() + "-" + file.originalname;
+
+    if (file.fieldname === "profile_image_link_details") {
+      const savePath = path.join(profileDir, filename);
+
+      fs.writeFileSync(savePath, file.buffer);
+
+      const fullPath = await encryptStringByChar(`web/uploads/profile/${filename}`);
+      profileLinks.push(fullPath);
+    }
+
+    if (file.fieldname === "signature_link_details") {
+      const savePath = path.join(signatureDir, filename);
+
+      fs.writeFileSync(savePath, file.buffer);
+
+      const fullPath = await encryptStringByChar(`web/uploads/signature/${filename}`);
+      signatureLinks.push(fullPath);
+    }
+  }
+
+
+  data.profile_image_link_details = profileLinks;
+  data.signature_link_details = signatureLinks;
 
     const id = await repository.addUser(data);
 

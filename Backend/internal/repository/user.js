@@ -38,9 +38,9 @@ exports.findById = async (_id) => {
 exports.findByUserName = async (user_name) => {
     const Model = UserModel();
 
-    return await Model.findOne({
-        user_name: buildSearchQuery(user_name)
-    }).lean();
+    const query = await buildSearchQuery("user_name", user_name);
+
+    return await Model.findOne(query).lean();
 };
 
 /**
@@ -49,20 +49,25 @@ exports.findByUserName = async (user_name) => {
 exports.findByPhone = async (phone_no) => {
     const Model = UserModel();
 
-    return await Model.findOne({
-        "phone_details.phone_no": buildSearchQuery(phone_no)
-    }).lean();
-};
+    const query = await buildSearchQuery(
+        "phone_details.phone_no",
+        phone_no
+    );
 
+    return await Model.findOne(query).lean();
+};
 /**
  * Find User By Email
  */
 exports.findByEmail = async (email_id) => {
     const Model = UserModel();
 
-    return await Model.findOne({
-        "email_details.email_id": buildSearchQuery(email_id)
-    }).lean();
+    const query = await buildSearchQuery(
+        "email_details.email_id",
+        email_id
+    );
+
+    return await Model.findOne(query).lean();
 };
 
 /**
@@ -81,24 +86,12 @@ exports.list = async (
 
     if (search) {
     filter.$or = [
-        {
-            first_name: buildSearchQuery(search)
-        },
-        {
-            last_name: buildSearchQuery(search)
-        },
-        {
-            full_name: buildSearchQuery(search)
-        },
-        {
-            user_name: buildSearchQuery(search)
-        },
-        {
-            "phone_details.phone_no": buildSearchQuery(search)
-        },
-        {
-            "email_details.email_id": buildSearchQuery(search)
-        }
+        await buildSearchQuery("first_name", search),
+        await buildSearchQuery("last_name", search),
+        await buildSearchQuery("full_name", search),
+        await buildSearchQuery("user_name", search),
+        await buildSearchQuery("phone_details.phone_no", search),
+        await buildSearchQuery("email_details.email_id", search)
     ];
     }
 
