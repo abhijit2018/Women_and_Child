@@ -80,7 +80,7 @@ function Slider() {
         showDots={true}
       />
 
-       <div className="hero__grid container">
+       <div className="hero__grid ">
         <div className="hero__content">
           <span className="hero__eyebrow">
             A confidential, women-centric support portal
