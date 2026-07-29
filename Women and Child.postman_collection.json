@@ -1,0 +1,424 @@
+{
+  "info": {
+    "_postman_id": "c0456186-6f51-444c-9eca-7ec834d24a2b",
+    "name": "Women and Child",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "1605341"
+  },
+  "item": [
+    {
+      "name": "User",
+      "item": [
+        {
+          "name": "Add Copy",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "_id",
+                  "value": "",
+                  "type": "text",
+                  "uuid": "52f9542a-b0fe-440e-8e10-a629d4ac50c6",
+                  "disabled": true
+                },
+                {
+                  "key": "wbp_id",
+                  "value": "WBP001000000001111",
+                  "type": "text",
+                  "uuid": "ee85c9f1-4e97-4900-84f0-89866fd17e99"
+                },
+                {
+                  "key": "hrms_id",
+                  "value": "HRMS124",
+                  "type": "text",
+                  "uuid": "aa1e91cc-d23b-4d93-a0f7-3e21ca92b3b4"
+                },
+                {
+                  "key": "prefix",
+                  "value": "Mr.",
+                  "type": "text",
+                  "uuid": "e29e209b-05c0-4580-bd55-fe9a3d3823fb"
+                },
+                {
+                  "key": "first_name",
+                  "value": "Amit",
+                  "type": "text",
+                  "uuid": "c8d71b02-95d3-4e3c-a2d2-e8071722a50e"
+                },
+                {
+                  "key": "middle_name",
+                  "value": "",
+                  "type": "text",
+                  "uuid": "d30b33a2-3373-4feb-bd0d-793b91f92a5d"
+                },
+                {
+                  "key": "last_name",
+                  "value": "Gorai",
+                  "type": "text",
+                  "uuid": "21461043-470a-49e4-bdcb-c8c93c1bf262"
+                },
+                {
+                  "key": "nick_name",
+                  "value": "Amit2025",
+                  "type": "text",
+                  "uuid": "427c2af8-7994-4541-9e33-76629003decd"
+                },
+                {
+                  "key": "gender",
+                  "value": "Male",
+                  "type": "text",
+                  "uuid": "7a0014a8-b22e-493a-b169-47f820dde908"
+                },
+                {
+                  "key": "phone_details",
+                  "value": "[{ \"phone_no\": \"30000000500\" }, { \"phone_no\": \"40000000600\" }]",
+                  "type": "text",
+                  "uuid": "00e16144-d86d-47c6-8155-2361e2c8dba2"
+                },
+                {
+                  "key": "email_details",
+                  "value": "[{ \"email_id\": \"Wr@report.com\" }, { \"email_id\": \"Nn@report.com\" }]",
+                  "type": "text",
+                  "uuid": "edd83696-d201-4c27-8b64-f49e7b23b18c"
+                },
+                {
+                  "key": "date_of_birth",
+                  "value": "2022-11-07",
+                  "type": "text",
+                  "uuid": "09f2d698-d458-4843-8cec-9cb362fbef28"
+                },
+                {
+                  "key": "present_address_id",
+                  "value": "69269a5d63ad0cd5540a39a6",
+                  "type": "text",
+                  "uuid": "e95d6be2-27d3-464b-814f-4d2453d2e76e"
+                },
+                {
+                  "key": "permanent_address_id",
+                  "value": "69269a5d63ad0cd5540a39a6",
+                  "type": "text",
+                  "uuid": "e8d129ba-20df-499d-9608-b33bc6fd7d29"
+                },
+                {
+                  "key": "user_name",
+                  "value": "admin",
+                  "type": "text",
+                  "uuid": "92c57bc3-a7c5-430d-8cdb-f4f1f1efefa3"
+                },
+                {
+                  "key": "password",
+                  "value": "12345",
+                  "type": "text",
+                  "uuid": "2463c069-5fd9-4cc6-a666-a1ff07e2d15e"
+                },
+                {
+                  "key": "type",
+                  "value": "Normal",
+                  "type": "text",
+                  "uuid": "86b200f7-3aa4-4aed-a9c6-065b8e1d31f2"
+                },
+                {
+                  "key": "status",
+                  "value": "Active",
+                  "type": "text",
+                  "uuid": "a623e8a0-3144-4613-bbe2-6d2f9daff8ff"
+                },
+                {
+                  "key": "selected_date_time",
+                  "value": "2025-11-21",
+                  "type": "text",
+                  "uuid": "099eee5c-0a3f-4456-affe-26a3721374a8"
+                },
+                {
+                  "key": "created_user_id",
+                  "value": "",
+                  "type": "text",
+                  "uuid": "f5027bc8-17c6-4b89-8246-c7579456ec09",
+                  "disabled": true
+                },
+                {
+                  "key": "created_date_time",
+                  "value": "",
+                  "type": "text",
+                  "uuid": "1337a6a9-5b67-4b0b-b9eb-53cf1747286e",
+                  "disabled": true
+                },
+                {
+                  "key": "updated_user_id",
+                  "value": "",
+                  "type": "text",
+                  "uuid": "586776dc-8868-4699-ba5e-a2908c98cbe5",
+                  "disabled": true
+                },
+                {
+                  "key": "updated_date_time",
+                  "value": "",
+                  "type": "text",
+                  "uuid": "4d7d9228-7f1f-49ac-86d1-3e0b90ccafd3",
+                  "disabled": true
+                },
+                {
+                  "key": "versionKey",
+                  "value": "1",
+                  "type": "text",
+                  "uuid": "13da967f-92eb-4e78-9fae-e46a3075e74c"
+                },
+                {
+                  "key": "profile_image",
+                  "type": "file",
+                  "uuid": "2a7db7e4-5a80-4cb3-94c2-ae48f980ca5f",
+                  "src": [
+                    "/C:/Users/sdc09/Desktop/Sample Image/natok.png",
+                    "/C:/Users/sdc09/Desktop/Sample Image/pan.jpg"
+                  ]
+                },
+                {
+                  "key": "signature",
+                  "type": "file",
+                  "uuid": "b1b7244e-ae96-479e-8342-b6ec9f62b2b4",
+                  "src": [
+                    "/C:/Users/sdc09/Desktop/Sample Image/pan.jpg",
+                    "/C:/Users/sdc09/Desktop/Sample Image/voter.jpeg"
+                  ]
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{url}}api/v1/462935265512122683259",
+              "host": [
+                "{{url}}api"
+              ],
+              "path": [
+                "v1",
+                "462935265512122683259"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "New Request",
+          "request": {
+            "method": "GET",
+            "header": []
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Types Of Crime",
+      "item": [
+        {
+          "name": "Add/Update",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "formdata",
+              "formdata": [
+                {
+                  "key": "name",
+                  "value": "Dowry Matters",
+                  "type": "text",
+                  "uuid": "78ea343d-4333-4e93-ab40-f0d45019ab4b"
+                },
+                {
+                  "key": "description",
+                  "value": "Dowry matters involve the illegal practice of giving or taking property, cash, or valuables during a marriage. This custom causes severe financial stress, gender bias, and tragic domestic abuse.",
+                  "type": "text",
+                  "uuid": "83f56eec-ef1c-4521-96ac-ac8420a5e0de"
+                },
+                {
+                  "key": "status",
+                  "value": "Active",
+                  "type": "text",
+                  "uuid": "e4be138f-5622-4945-a554-8530267107e1"
+                }
+              ]
+            },
+            "url": {
+              "raw": "{{url}}api/v1/6008453620013500869001C37BQ1452701",
+              "host": [
+                "{{url}}api"
+              ],
+              "path": [
+                "v1",
+                "6008453620013500869001C37BQ1452701"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Get by ID",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"_id\": \"6a6745afa664b3cd9a6baf34\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}api/v1/6008453620013500869001C37BQ1452701",
+              "host": [
+                "{{url}}api"
+              ],
+              "path": [
+                "v1",
+                "6008453620013500869001C37BQ1452701"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "list",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"page\": 1,\r\n    \"limit\": 10\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}api/v1/6009453620013500969001C37BQ1452701",
+              "host": [
+                "{{url}}api"
+              ],
+              "path": [
+                "v1",
+                "6009453620013500969001C37BQ1452701"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Search",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"search\": \"illegal practice\",\r\n    \"search\": \"taking property\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}api/v1/6012453620013501269001C37BQ1452701",
+              "host": [
+                "{{url}}api"
+              ],
+              "path": [
+                "v1",
+                "6012453620013501269001C37BQ1452701"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "delete",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"_id\": \"6a674372be7efca03c030bcb\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}api/v1/6010453620013501069001C37BQ1452701",
+              "host": [
+                "{{url}}api"
+              ],
+              "path": [
+                "v1",
+                "6010453620013501069001C37BQ1452701"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Change Status",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"_id\": \"6a6745afa664b3cd9a6baf34\",\r\n    \"status\": \"Pending\"\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{url}}api/v1/6011453620013501169001C37BQ1452701",
+              "host": [
+                "{{url}}api"
+              ],
+              "path": [
+                "v1",
+                "6011453620013501169001C37BQ1452701"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

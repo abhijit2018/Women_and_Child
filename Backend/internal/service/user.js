@@ -1,11 +1,19 @@
 const bcrypt = require("bcrypt");
 const repository = require("../repository/user");
+const { encryptStringByChar, decryptStringByChar } = require('../../pkg/utils/encrypt_decrypt');
+const fs = require("fs");
+const path = require("path");
+const mongoose = require('mongoose');
+
 
 /**
  * Add / Update User
  */
-exports.add = async (data) => {
+exports.add = async (data, files) => {
   try {
+    if (!data.prefix)
+      throw new Error("prefix is required.");
+
     if (!data.first_name)
       throw new Error("First Name is required.");
 
@@ -18,13 +26,54 @@ exports.add = async (data) => {
     if (!data.password && !data._id)
       throw new Error("Password is required.");
 
+    /* ---------------- Full Name ---------------- */
+
     data.full_name = [
+      data.prefix,
       data.first_name,
       data.middle_name,
       data.last_name,
     ]
       .filter(Boolean)
       .join(" ");
+
+    /* ---------------- Encrypt Before Duplicate Check ---------------- */
+
+    const encryptedPrefix = await encryptStringByChar(
+      data.prefix
+    );
+
+    const encryptedFirstName = await encryptStringByChar(
+      data.first_name
+    );
+
+    const encryptedMiddleName = data.middle_name
+      ? await encryptStringByChar(data.middle_name)
+      : "";
+
+    const encryptedLastName = await encryptStringByChar(
+      data.last_name
+    );
+
+    const encryptedFullName = await encryptStringByChar(
+      data.full_name
+    );
+
+    const encryptedNickName = data.nick_name
+    ? await encryptStringByChar(data.nick_name)
+    : "";
+
+    data.nick_name = encryptedNickName;
+
+    const encryptedGender = data.gender
+    ? await encryptStringByChar(data.gender)
+    : "";
+
+    data.gender = encryptedGender;
+
+    const encryptedUserName = await encryptStringByChar(
+      data.user_name
+    );
 
     /* ---------------- Username ---------------- */
 
@@ -39,47 +88,63 @@ exports.add = async (data) => {
 
     /* ---------------- Phone ---------------- */
 
-    if (
-      data.phone_details &&
-      data.phone_details.length > 0 &&
-      data.phone_details[0].phone_no
-    ) {
-      const phone = await repository.findByPhone(
-        data.phone_details[0].phone_no
-      );
+    if (Array.isArray(data.phone_details)) {
 
-      if (
-        phone &&
-        (!data._id || phone._id.toString() !== data._id)
-      ) {
-        throw new Error("Phone Number already exists.");
+      for (const phone of data.phone_details) {
+
+          if (!phone.phone_no) continue;
+
+          const exists = await repository.findByPhone(phone.phone_no);
+
+          if (
+              exists &&
+              (!data._id || exists._id.toString() !== data._id)
+          ) {
+              throw new Error("Phone Number already exists.");
+          }
+
+          phone.phone_no = await encryptStringByChar(phone.phone_no);
       }
-    }
+  }
 
     /* ---------------- Email ---------------- */
 
-    if (
-      data.email_details &&
-      data.email_details.length > 0 &&
-      data.email_details[0].email_id
-    ) {
-      const email = await repository.findByEmail(
-        data.email_details[0].email_id
-      );
+    if (Array.isArray(data.email_details)) {
 
-      if (
-        email &&
-        (!data._id || email._id.toString() !== data._id)
-      ) {
-        throw new Error("Email already exists.");
-      }
+        for (const email of data.email_details) {
+
+            if (!email.email_id) continue;
+
+            const exists = await repository.findByEmail(email.email_id);
+
+            if (
+                exists &&
+                (!data._id || exists._id.toString() !== data._id)
+            ) {
+                throw new Error("Email already exists.");
+            }
+
+            email.email_id = await encryptStringByChar(email.email_id);
+        }
     }
+
+    /* ---------------- Encrypt User Fields ---------------- */
+
+    data.prefix = encryptedPrefix;
+    data.first_name = encryptedFirstName;
+    data.middle_name = encryptedMiddleName;
+    data.last_name = encryptedLastName;
+    data.full_name = encryptedFullName;
+    data.user_name = encryptedUserName;
 
     /* ---------------- Password ---------------- */
 
     if (data.password) {
       const salt = await bcrypt.genSalt(10);
-      data.password = await bcrypt.hash(data.password, salt);
+      data.password = await bcrypt.hash(
+        data.password,
+        salt
+      );
     }
 
     data.updated_date_time = new Date();
@@ -87,6 +152,43 @@ exports.add = async (data) => {
     if (!data._id) {
       data.created_date_time = new Date();
     }
+
+    const profileLinks = [];
+  const signatureLinks = [];
+
+  const profileDir = "web/uploads/profile/";
+  const signatureDir = "web/uploads/signature/";
+
+
+  if (!fs.existsSync(profileDir)) fs.mkdirSync(profileDir, { recursive: true });
+  if (!fs.existsSync(signatureDir)) fs.mkdirSync(signatureDir, { recursive: true });
+
+
+  for (const file of (files || [])) {
+    const filename = Date.now() + "-" + file.originalname;
+
+    if (file.fieldname === "profile_image_link_details") {
+      const savePath = path.join(profileDir, filename);
+
+      fs.writeFileSync(savePath, file.buffer);
+
+      const fullPath = await encryptStringByChar(`web/uploads/profile/${filename}`);
+      profileLinks.push(fullPath);
+    }
+
+    if (file.fieldname === "signature_link_details") {
+      const savePath = path.join(signatureDir, filename);
+
+      fs.writeFileSync(savePath, file.buffer);
+
+      const fullPath = await encryptStringByChar(`web/uploads/signature/${filename}`);
+      signatureLinks.push(fullPath);
+    }
+  }
+
+
+  data.profile_image_link_details = profileLinks;
+  data.signature_link_details = signatureLinks;
 
     const id = await repository.addUser(data);
 
@@ -111,10 +213,44 @@ exports.getById = async (data) => {
     throw new Error("User Id is required.");
   }
 
-  const result = await repository.findById(data._id);
+  let result = await repository.findById(data._id);
 
   if (!result) {
     throw new Error("User not found.");
+  }
+
+  result = await decryptObject(result, [
+    "_id",
+    "password",
+    "status",
+    "selected_date_time",
+    "created_date_time",
+    "updated_date_time",
+    "created_user_id",
+    "updated_user_id",
+    "__v",
+    "createdAt",
+    "updatedAt",
+    "phone_details",
+    "email_details",
+  ]);
+
+  // Decrypt phone numbers
+  if (result.phone_details && result.phone_details.length > 0) {
+    for (const phone of result.phone_details) {
+      phone.phone_no = await decryptObject({
+        phone_no: phone.phone_no,
+      }, []).then((r) => r.phone_no);
+    }
+  }
+
+  // Decrypt email ids
+  if (result.email_details && result.email_details.length > 0) {
+    for (const email of result.email_details) {
+      email.email_id = await decryptObject({
+        email_id: email.email_id,
+      }, []).then((r) => r.email_id);
+    }
   }
 
   return result;
@@ -129,12 +265,34 @@ exports.list = async (data) => {
   const search = data.search || "";
   const status = data.status || "";
 
-  return await repository.list(
+  const result = await repository.list(
     page,
     limit,
     search,
     status
   );
+
+  if (result.rows && result.rows.length > 0) {
+    result.rows = await Promise.all(
+      result.rows.map(async (user) => {
+        return await decryptObject(user, [
+          "_id",
+          "password",
+          "status",
+          "selected_date_time",
+          "created_date_time",
+          "updated_date_time",
+          "created_user_id",
+          "updated_user_id",
+          "__v",
+          "createdAt",
+          "updatedAt",
+        ]);
+      })
+    );
+  }
+
+  return result;
 };
 
 /**

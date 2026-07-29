@@ -62,17 +62,26 @@ async function decryptStringByChar(encryptedText) {
   return result;
 }
 
-async function buildSearchQuery(text) {
-  const normalizedText = text.toUpperCase(); 
-  let pattern = '';
+async function buildSearchQuery(field, text) {
+  const normalizedText = text.toUpperCase();
+
+  let pattern = "";
+
   for (let i = 0; i < normalizedText.length; i++) {
     const ch = normalizedText[i];
-    const enc = encryptChar(ch); 
+    const enc = encryptChar(ch);
+
     pattern += `(01|00|02)${enc}`;
-    if (i < normalizedText.length - 1) pattern += ' ';
+
+    if (i < normalizedText.length - 1) {
+      pattern += " ";
+    }
   }
+
   return {
-    $or: [{ name: { $regex: pattern } }]
+    [field]: {
+      $regex: pattern
+    }
   };
 }
 
