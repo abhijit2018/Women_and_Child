@@ -1,5 +1,5 @@
 const repository = require("../repository/district");
-
+const { generateToken } = require("../../pkg/utils/token");
 /**
  * Add / Update District
  */
@@ -13,16 +13,16 @@ exports.add = async (data) => {
       throw new Error("District Name is required.");
     }
 
-    if (!data.state_id) {
-      throw new Error("State is required.");
-    }
+    // if (!data.state_id) {
+    //   throw new Error("State is required.");
+    // }
 
     // Check State Exists
-    const stateExists = await repository.stateExists(data.state_id);
+    // const stateExists = await repository.stateExists(data.state_id);
 
-    if (!stateExists) {
-      throw new Error("Selected State does not exist.");
-    }
+    // if (!stateExists) {
+    //   throw new Error("Selected State does not exist.");
+    // }
 
     // Duplicate District Id
     const districtById = await repository.findByDistrictId(
@@ -55,15 +55,21 @@ exports.add = async (data) => {
     }
 
     const id = await repository.addDistrict(data);
+     const token = generateToken("district", id);
 
-    return {
-      message: data._id
-        ? "District Updated Successfully."
-        : "District Added Successfully.",
-      data: {
-        _id: id,
-      },
+    // return {
+    //   message: data._id
+    //     ? "District Updated Successfully."
+    //     : "District Added Successfully.",
+    //   data: {
+    //     _id: id,
+    //   },
+    // };
+        return {
+      message: data._id ? "District Updated Successfully." : "District Added Successfully.",
+      data: { token },
     };
+
   } catch (error) {
     throw error;
   }

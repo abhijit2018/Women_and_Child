@@ -13,16 +13,16 @@ exports.add = async (data) => {
       throw new Error("District Name is required.");
     }
 
-    if (!data.state_id) {
-      throw new Error("State is required.");
-    }
+    // if (!data.state_id) {
+    //   throw new Error("State is required.");
+    // }
 
     // Check State Exists
-    const stateExists = await repository.stateExists(data.state_id);
+    // const stateExists = await repository.stateExists(data.state_id);
 
-    if (!stateExists) {
-      throw new Error("Selected State does not exist.");
-    }
+    // if (!stateExists) {
+    //   throw new Error("Selected State does not exist.");
+    // }
 
     // Duplicate District Id
     const districtById = await repository.findByDistrictId(
