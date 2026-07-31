@@ -11,6 +11,15 @@ const mongoose = require('mongoose');
  */
 exports.add = async (data, files) => {
   try {
+
+    if (data._id) {
+        const existingUser = await repository.findById(data._id);
+
+        if (!existingUser) {
+            throw new Error("User not found.");
+        }
+    }
+
     if (!data.prefix)
       throw new Error("prefix is required.");
 
@@ -145,6 +154,8 @@ exports.add = async (data, files) => {
         data.password,
         salt
       );
+    } else if (data._id) {
+      delete data.password;
     }
 
     data.updated_date_time = new Date();
@@ -187,8 +198,17 @@ exports.add = async (data, files) => {
   }
 
 
-  data.profile_image_link_details = profileLinks;
-  data.signature_link_details = signatureLinks;
+  if (profileLinks.length) {
+    data.profile_image_link_details = profileLinks;
+  } else if (data._id) {
+      data.profile_image_link_details = existingUser.profile_image_link_details;
+  }
+  
+  if (signatureLinks.length) {
+    data.signature_link_details = signatureLinks;
+  } else if (data._id) {
+      data.signature_link_details = existingUser.signature_link_details;
+  }
 
     const id = await repository.addUser(data);
 
