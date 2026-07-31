@@ -52,7 +52,7 @@ import {
 
 import MainLayout from "../layouts/MainLayout";
 import AdminLogin from "@/features/home/pages/AdminLogin";
-// import Dashboard from "@/features/dashboard/pages/Dashboard";
+// import Dashboard from "@/features/dashboard/pages/Dashboard"; //dashboard
 
 const AppRoutes = () => {
   return (
