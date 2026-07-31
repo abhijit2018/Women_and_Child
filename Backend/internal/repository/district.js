@@ -2,8 +2,10 @@ const mongoose = require("mongoose");
 const { add } = require("../../pkg/utils/common");
 const { getDynamicModel } = require("../../pkg/utils/project_model");
 const { districtSchema } = require("../model/district");
+const { encryptFields, decryptFields } = require("../../pkg/utils/encrypt_decrypt");
 
 const COLLECTION_NAME = "district";
+const ENCRYPTED_FIELDS = ["district_id", "district_name", "status"];
 
 /**
  * Get District Model
@@ -15,8 +17,11 @@ const DistrictModel = () => {
 /**
  * Add / Update District
  */
+
 exports.addDistrict = async (data) => {
-  return await add(data, COLLECTION_NAME, districtSchema);
+  const encrypted = await encryptFields(data, ENCRYPTED_FIELDS);
+   const savedDoc = await add(encrypted, COLLECTION_NAME, districtSchema);
+  return savedDoc._id;
 };
 
 /**
@@ -24,10 +29,11 @@ exports.addDistrict = async (data) => {
  */
 exports.findById = async (_id) => {
   const Model = DistrictModel();
-
-  return await Model.findById(_id)
+  const doc = await Model.findById(_id)
     .populate("state_id", "state_id state_name")
     .lean();
+
+  return doc ? await decryptFields(doc, ENCRYPTED_FIELDS) : null;
 };
 
 /**
