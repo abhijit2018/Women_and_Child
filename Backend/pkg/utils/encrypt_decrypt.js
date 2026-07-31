@@ -131,6 +131,13 @@ async function decryptObject(obj, skipFields = ['_id', 'selected_date_time', 'cr
   return result;
 }
 
+async function buildExactQuery(field, text) {
+  const partial = await buildSearchQuery(field, text);
+  return {
+    [field]: { $regex: `^${partial[field].$regex}$` }
+  };
+}
+
 module.exports = {
   encryptChar,
   decryptChar,
@@ -140,4 +147,5 @@ module.exports = {
   decryptObject,
   encryptFields,
   decryptFields, 
+  buildExactQuery
 };

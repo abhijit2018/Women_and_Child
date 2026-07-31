@@ -17,9 +17,7 @@ const DistrictModel = () => {
 /**
  * Add / Update District
  */
-// exports.addDistrict = async (data) => {
-//   return await add(data, COLLECTION_NAME, districtSchema);
-// };
+
 exports.addDistrict = async (data) => {
   const encrypted = await encryptFields(data, ENCRYPTED_FIELDS);
    const savedDoc = await add(encrypted, COLLECTION_NAME, districtSchema);
