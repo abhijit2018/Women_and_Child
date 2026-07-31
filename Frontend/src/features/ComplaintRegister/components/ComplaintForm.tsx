@@ -118,7 +118,7 @@ const VICTIM_FIELDS_LINKED_TO_COMPLAINANT: Array<{
 ];
 
 function RegisterForm() {
-  
+
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [status, setStatus] = useState<FormStatus>('idle');
@@ -771,7 +771,7 @@ function RegisterForm() {
                   of my knowledge.
                   <br />
                   আমি এই মর্মে ঘোষণা করছি যে, উপরোক্ত প্রদত্ত তথ্য আমার জ্ঞান ও বিশ্বাস
-                  অনুযায়ী সত্য।
+                  অনুযায়ী সত্য ।
                 </span>
               </label>
 
