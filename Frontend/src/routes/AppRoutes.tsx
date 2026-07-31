@@ -50,11 +50,40 @@ import {
   Route,
 } from "react-router-dom";
 
+// import MainLayout from "../layouts/MainLayout";
+// import HomePage from "../features/home/pages/HomePage";
+// import ComplaintPage from"../features/ComplaintRegister/pages/ComplaintPage";
+
+
+// const AppRoutes = () => {
+//   return (
+//     <BrowserRouter>
+//       <Routes>
+//         <Route element={<MainLayout />}>
+//           <Route
+//             path="/"
+//             element={<HomePage />}
+//           />
+//           <Route
+//             path="/onlinecomplaints"
+//             element={<ComplaintPage />}
+//           />
+//         </Route>
+//       </Routes>
+//     </BrowserRouter>
+//   );
+// };
+
+// export default AppRoutes;
+
+
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import MainLayout from "../layouts/MainLayout";
 import AdminLogin from "@/features/home/pages/AdminLogin";
 // import Dashboard from "@/features/dashboard/pages/Dashboard";
 
-const AppRoutes = () => {
+export default function AppRoutes() {
   return (
     <BrowserRouter>
       <Routes>
@@ -76,6 +105,4 @@ const AppRoutes = () => {
       </Routes>
     </BrowserRouter>
   );
-};
-
-export default AppRoutes;
+}

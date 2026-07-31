@@ -15,7 +15,7 @@ exports.add = async (req, res) => {
         req.body.email_details = JSON.parse(req.body.email_details);
     }
 
-    const result = await userService.add(req.body);
+    const result = await userService.add(req.body,req.files);
 
     return res.status(200).json({
       success: true,
