@@ -1,0 +1,131 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.admin-login {
+  width: 100%;
+  min-height: 100vh;
+  background: url("/images/adminBack.png") center center/cover no-repeat;
+  overflow: hidden;
+}
+
+.login-overlay {
+  width: 100%;
+  min-height: 100vh;
+  /* background: rgba(0, 0, 0, 0.25); */
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.login-wrapper {
+  width: 100%;
+  max-width: 1700px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 40px 60px;
+  gap: 40px;
+}
+
+/* ===========================
+   LEFT PANEL
+=========================== */
+
+.login-left {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+/* ===========================
+   WOMAN IMAGE
+=========================== */
+
+.login-center {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+
+.login-center img {
+  width: 100%;
+  max-width: 420px;
+  max-height: 90vh;
+  object-fit: contain;
+}
+
+/* ===========================
+   LOGIN CARD
+=========================== */
+
+.login-right {
+  flex: 0.8;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* ===========================
+   LAPTOP
+=========================== */
+
+@media (max-width: 1400px) {
+  .login-wrapper {
+    padding: 30px 40px;
+    gap: 30px;
+  }
+
+  .login-center img {
+    max-width: 350px;
+  }
+}
+
+/* ===========================
+   TABLET
+=========================== */
+
+@media (max-width: 992px) {
+  .login-wrapper {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+    gap: 40px;
+    padding: 30px;
+  }
+
+  .login-left,
+  .login-center,
+  .login-right {
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .login-center img {
+    max-width: 280px;
+    max-height: 380px;
+  }
+}
+
+/* ===========================
+   MOBILE
+=========================== */
+
+@media (max-width: 768px) {
+  .login-wrapper {
+    padding: 20px;
+    gap: 25px;
+  }
+
+  .login-center img {
+    max-width: 220px;
+  }
+}

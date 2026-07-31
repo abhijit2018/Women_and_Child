@@ -1,0 +1,428 @@
+/* ===========================================
+   LOGIN CARD
+=========================================== */
+
+.login-card {
+  width: 100%;
+  max-width: 430px;
+  background: rgba(255, 255, 255, 0.97);
+  border-radius: 24px;
+  padding: 55px 32px 30px;
+  position: relative;
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+  backdrop-filter: blur(10px);
+}
+
+/* ===========================================
+   LOGO
+=========================================== */
+
+.login-logo {
+  position: absolute;
+  top: -42px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  width: 84px;
+  height: 84px;
+
+  border-radius: 50%;
+  background: #fff;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-shadow: 0 10px 25px rgba(0, 0, 0, .15);
+}
+
+.login-logo img {
+  width: 52px;
+  height: auto;
+}
+
+/* ===========================================
+   TITLE
+=========================================== */
+
+.login-title {
+  text-align: center;
+  font-size: 30px;
+  font-weight: 700;
+  color: #241b63;
+  margin-bottom: 8px;
+}
+
+.login-subtitle {
+  text-align: center;
+  color: #777;
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+/* ===========================================
+   TABS
+=========================================== */
+
+.login-tabs {
+  display: flex;
+  margin-bottom: 22px;
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.login-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  padding: 14px 0;
+  cursor: pointer;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  color: #777;
+
+  border-bottom: 3px solid transparent;
+
+  transition: .3s;
+}
+
+.login-tab:hover {
+  color: #5d3bff;
+}
+
+.login-tab.active {
+  color: #5d3bff;
+  border-bottom-color: #5d3bff;
+}
+
+/* ===========================================
+   INPUTS
+=========================================== */
+
+.input-box {
+  height: 50px;
+  border: 1px solid #dcdcdc;
+  border-radius: 10px;
+
+  display: flex;
+  align-items: center;
+
+  padding: 0 16px;
+
+  background: #fff;
+
+  margin-bottom: 15px;
+
+  transition: .3s;
+}
+
+.input-box:focus-within {
+  border-color: #5d3bff;
+  box-shadow: 0 0 0 3px rgba(93,59,255,.08);
+}
+
+.input-box svg {
+  font-size: 17px;
+  color: #777;
+}
+
+.input-box input {
+  flex: 1;
+  border: none;
+  outline: none;
+
+  padding-left: 12px;
+
+  font-size: 14px;
+
+  background: transparent;
+}
+
+.input-box input::placeholder {
+  color: #999;
+}
+
+/* ===========================================
+   CAPTCHA
+=========================================== */
+
+.captcha-wrapper {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 18px;
+}
+
+.captcha-image {
+  width: 125px;
+  height: 50px;
+
+  border-radius: 10px;
+  border: 1px solid #ddd;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background: #f8f8f8;
+
+  font-size: 20px;
+  font-weight: bold;
+
+  letter-spacing: 3px;
+
+  user-select: none;
+}
+
+.refresh-btn {
+  width: 50px;
+  height: 50px;
+
+  border-radius: 10px;
+
+  border: 1px solid #ddd;
+
+  background: #fff;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.refresh-btn:hover {
+  background: #f3f3f3;
+}
+
+.captcha-wrapper input {
+  flex: 1;
+
+  border: 1px solid #ddd;
+
+  border-radius: 10px;
+
+  padding: 0 15px;
+
+  outline: none;
+
+  font-size: 14px;
+}
+
+.captcha-wrapper input:focus {
+  border-color: #5d3bff;
+}
+
+/* ===========================================
+   REMEMBER / FORGOT
+=========================================== */
+
+.login-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+  margin-bottom: 22px;
+}
+
+.remember-me {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  font-size: 13px;
+  color: #555;
+}
+
+.remember-me input {
+  cursor: pointer;
+}
+
+.forgot-btn {
+  background: transparent;
+  border: none;
+
+  color: #5d3bff;
+
+  cursor: pointer;
+
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.forgot-btn:hover {
+  text-decoration: underline;
+}
+
+/* ===========================================
+   LOGIN BUTTON
+=========================================== */
+
+.login-btn {
+  width: 100%;
+  height: 50px;
+
+  border: none;
+
+  border-radius: 10px;
+
+  background: linear-gradient(90deg,#5d3bff,#d645b2);
+
+  color: white;
+
+  font-size: 17px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.login-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 20px rgba(93,59,255,.3);
+}
+
+/* ===========================================
+   DIVIDER
+=========================================== */
+
+.divider {
+  position: relative;
+  margin: 18px 0;
+  text-align: center;
+}
+
+.divider::before {
+  content: "";
+
+  position: absolute;
+
+  width: 100%;
+  height: 1px;
+
+  background: #ddd;
+
+  left: 0;
+  top: 50%;
+}
+
+.divider span {
+  position: relative;
+
+  background: white;
+
+  padding: 0 14px;
+
+  color: #777;
+
+  font-size: 13px;
+}
+
+/* ===========================================
+   OTP BUTTON
+=========================================== */
+
+.otp-btn {
+  width: 100%;
+  height: 50px;
+
+  border-radius: 10px;
+
+  border: 2px solid #5d3bff;
+
+  background: #fff;
+
+  color: #5d3bff;
+
+  font-size: 15px;
+  font-weight: 600;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+
+  cursor: pointer;
+
+  transition: .3s;
+}
+
+.otp-btn:hover {
+  background: #f7f5ff;
+}
+
+/* ===========================================
+   REGISTER PLACEHOLDER
+=========================================== */
+
+.register-placeholder {
+  text-align: center;
+  padding: 30px 10px;
+}
+
+.register-placeholder h3 {
+  color: #241b63;
+  margin-bottom: 10px;
+}
+
+.register-placeholder p {
+  color: #777;
+  font-size: 14px;
+}
+
+
+
+/* ===========================================
+   Password
+=========================================== */
+
+.password-toggle {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: #777;
+  font-size: 18px;
+
+  padding: 0;
+}
+
+.password-toggle:hover {
+  color: #5d3bff;
+}
+
+.password-toggle:focus {
+  outline: none;
+}
+
+/* ===========================================
+   RESPONSIVE
+=========================================== */
+
+@media (max-width: 768px) {
+
+  .login-card {
+    max-width: 100%;
+    padding: 45px 20px 25px;
+  }
+
+  .login-title {
+    font-size: 26px;
+  }
+
+  .captcha-wrapper {
+    flex-wrap: wrap;
+  }
+
+  .captcha-image {
+    width: 100%;
+  }
+
+  .refresh-btn {
+    width: 55px;
+  }
+
+}
