@@ -1,5 +1,5 @@
 const repository = require("../repository/district");
-
+const { generateToken } = require("../../pkg/utils/token");
 /**
  * Add / Update District
  */
@@ -13,16 +13,16 @@ exports.add = async (data) => {
       throw new Error("District Name is required.");
     }
 
-    if (!data.state_id) {
-      throw new Error("State is required.");
-    }
+    // if (!data.state_id) {
+    //   throw new Error("State is required.");
+    // }
 
     // Check State Exists
-    const stateExists = await repository.stateExists(data.state_id);
+    // const stateExists = await repository.stateExists(data.state_id);
 
-    if (!stateExists) {
-      throw new Error("Selected State does not exist.");
-    }
+    // if (!stateExists) {
+    //   throw new Error("Selected State does not exist.");
+    // }
 
     // Duplicate District Id
     const districtById = await repository.findByDistrictId(
@@ -55,20 +55,27 @@ exports.add = async (data) => {
     }
 
     const id = await repository.addDistrict(data);
+    //  const token = generateToken("district", id);
+        const token = generateToken({ t: "record", c: "district", i: id.toString() });
 
-    return {
-      message: data._id
-        ? "District Updated Successfully."
-        : "District Added Successfully.",
-      data: {
-        _id: id,
-      },
+
+    // return {
+    //   message: data._id
+    //     ? "District Updated Successfully."
+    //     : "District Added Successfully.",
+    //   data: {
+    //     _id: id,
+    //   },
+    // };
+        return {
+      message: data._id ? "District Updated Successfully." : "District Added Successfully.",
+      data: { token },
     };
+
   } catch (error) {
     throw error;
   }
 };
-
 /**
  * Get District By Id
  */
@@ -89,18 +96,53 @@ exports.getById = async (data) => {
 /**
  * District Listing
  */
-exports.list = async (data) => {
-  const page = Number(data.page) || 1;
-  const limit = Number(data.limit) || 10;
-  const search = data.search || "";
-  const status = data.status || "";
+// exports.list = async (data) => {
+//   const page = Number(data.page) || 1;
+//   const limit = Number(data.limit) || 10;
+//   const search = data.search || "";
+//   const status = data.status || "";
 
-  return await repository.list(
-    page,
-    limit,
-    search,
-    status
-  );
+//   return await repository.list(
+//     page,
+//     limit,
+//     search,
+//     status
+//   );
+// };
+// exports.list = async (data) => {
+//   const token = generateToken({
+//     t: "list",
+//     c: "district",
+//     page: Number(data.page) || 1,
+//     limit: Number(data.limit) || 10,
+//     search: data.search || "",
+//     status: data.status || "",
+//   });
+
+//   return {
+//     message: "District List Token Generated Successfully.",
+//     data: { token },
+//   };
+// };
+exports.list = async (data) => {
+  const filters = {};
+
+  if (data.district_id) filters.district_id = data.district_id;
+  if (data.district_name) filters.district_name = data.district_name;
+
+  const token = generateToken({
+    t: "list",
+    c: "district",
+    page: Number(data.page) || 1,
+    limit: Number(data.limit) || 10,
+    status: data.status || "",
+    filters,
+  });
+
+  return {
+    message: "District List Token Generated Successfully.",
+    data: { token },
+  };
 };
 
 /**
