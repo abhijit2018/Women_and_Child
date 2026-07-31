@@ -209,90 +209,211 @@ exports.add = async (data, files) => {
  * Get User By Id
  */
 exports.getById = async (data) => {
-  if (!data._id) {
-    throw new Error("User Id is required.");
-  }
-
-  let result = await repository.findById(data._id);
-
-  if (!result) {
-    throw new Error("User not found.");
-  }
-
-  result = await decryptObject(result, [
-    "_id",
-    "password",
-    "status",
-    "selected_date_time",
-    "created_date_time",
-    "updated_date_time",
-    "created_user_id",
-    "updated_user_id",
-    "__v",
-    "createdAt",
-    "updatedAt",
-    "phone_details",
-    "email_details",
-  ]);
-
-  // Decrypt phone numbers
-  if (result.phone_details && result.phone_details.length > 0) {
-    for (const phone of result.phone_details) {
-      phone.phone_no = await decryptObject({
-        phone_no: phone.phone_no,
-      }, []).then((r) => r.phone_no);
+  try {
+    if (!data._id) {
+      throw new Error("User Id is required.");
     }
-  }
 
-  // Decrypt email ids
-  if (result.email_details && result.email_details.length > 0) {
-    for (const email of result.email_details) {
-      email.email_id = await decryptObject({
-        email_id: email.email_id,
-      }, []).then((r) => r.email_id);
+    const result = await repository.findById(data._id);
+
+    if (!result) {
+      throw new Error("User not found.");
     }
-  }
 
-  return result;
+    /* ---------------- Decrypt User Fields ---------------- */
+
+    result.prefix = result.prefix
+      ? await decryptStringByChar(result.prefix)
+      : "";
+
+    result.first_name = result.first_name
+      ? await decryptStringByChar(result.first_name)
+      : "";
+
+    result.middle_name = result.middle_name
+      ? await decryptStringByChar(result.middle_name)
+      : "";
+
+    result.last_name = result.last_name
+      ? await decryptStringByChar(result.last_name)
+      : "";
+
+    result.full_name = result.full_name
+      ? await decryptStringByChar(result.full_name)
+      : "";
+
+    result.nick_name = result.nick_name
+      ? await decryptStringByChar(result.nick_name)
+      : "";
+
+    result.gender = result.gender
+      ? await decryptStringByChar(result.gender)
+      : "";
+
+    result.user_name = result.user_name
+      ? await decryptStringByChar(result.user_name)
+      : "";
+
+    /* ---------------- Phone ---------------- */
+
+    if (Array.isArray(result.phone_details)) {
+      for (const phone of result.phone_details) {
+        if (phone.phone_no) {
+          phone.phone_no = await decryptStringByChar(
+            phone.phone_no
+          );
+        }
+      }
+    }
+
+    /* ---------------- Email ---------------- */
+
+    if (Array.isArray(result.email_details)) {
+      for (const email of result.email_details) {
+        if (email.email_id) {
+          email.email_id = await decryptStringByChar(
+            email.email_id
+          );
+        }
+      }
+    }
+
+    /* ---------------- Profile Images ---------------- */
+
+    if (Array.isArray(result.profile_image_link_details)) {
+      const profileLinks = [];
+
+      for (const link of result.profile_image_link_details) {
+        profileLinks.push(
+          await decryptStringByChar(link)
+        );
+      }
+
+      result.profile_image_link_details = profileLinks;
+    }
+
+    /* ---------------- Signature Images ---------------- */
+
+    if (Array.isArray(result.signature_link_details)) {
+      const signatureLinks = [];
+
+      for (const link of result.signature_link_details) {
+        signatureLinks.push(
+          await decryptStringByChar(link)
+        );
+      }
+
+      result.signature_link_details = signatureLinks;
+    }
+
+    return result;
+
+  } catch (err) {
+    throw err;
+  }
 };
 
 /**
  * User List
  */
 exports.list = async (data) => {
-  const page = Number(data.page) || 1;
-  const limit = Number(data.limit) || 10;
-  const search = data.search || "";
-  const status = data.status || "";
+  try {
+    const page = Number(data.page) || 1;
+    const limit = Number(data.limit) || 10;
+    const search = data.search || "";
+    const status = data.status || "";
 
-  const result = await repository.list(
-    page,
-    limit,
-    search,
-    status
-  );
-
-  if (result.rows && result.rows.length > 0) {
-    result.rows = await Promise.all(
-      result.rows.map(async (user) => {
-        return await decryptObject(user, [
-          "_id",
-          "password",
-          "status",
-          "selected_date_time",
-          "created_date_time",
-          "updated_date_time",
-          "created_user_id",
-          "updated_user_id",
-          "__v",
-          "createdAt",
-          "updatedAt",
-        ]);
-      })
+    const result = await repository.list(
+      page,
+      limit,
+      search,
+      status
     );
-  }
 
-  return result;
+    for (const user of result.rows) {
+
+      /* ---------- Basic Fields ---------- */
+
+      user.prefix = user.prefix
+        ? await decryptStringByChar(user.prefix)
+        : "";
+
+      user.first_name = user.first_name
+        ? await decryptStringByChar(user.first_name)
+        : "";
+
+      user.middle_name = user.middle_name
+        ? await decryptStringByChar(user.middle_name)
+        : "";
+
+      user.last_name = user.last_name
+        ? await decryptStringByChar(user.last_name)
+        : "";
+
+      user.full_name = user.full_name
+        ? await decryptStringByChar(user.full_name)
+        : "";
+
+      user.nick_name = user.nick_name
+        ? await decryptStringByChar(user.nick_name)
+        : "";
+
+      user.gender = user.gender
+        ? await decryptStringByChar(user.gender)
+        : "";
+
+      user.user_name = user.user_name
+        ? await decryptStringByChar(user.user_name)
+        : "";
+
+      /* ---------- Phone ---------- */
+
+      if (Array.isArray(user.phone_details)) {
+        for (const phone of user.phone_details) {
+          phone.phone_no = phone.phone_no
+            ? await decryptStringByChar(phone.phone_no)
+            : "";
+        }
+      }
+
+      /* ---------- Email ---------- */
+
+      if (Array.isArray(user.email_details)) {
+        for (const email of user.email_details) {
+          email.email_id = email.email_id
+            ? await decryptStringByChar(email.email_id)
+            : "";
+        }
+      }
+
+      /* ---------- Profile Images ---------- */
+
+      if (Array.isArray(user.profile_image_link_details)) {
+        for (let i = 0; i < user.profile_image_link_details.length; i++) {
+          user.profile_image_link_details[i] =
+            await decryptStringByChar(
+              user.profile_image_link_details[i]
+            );
+        }
+      }
+
+      /* ---------- Signature Images ---------- */
+
+      if (Array.isArray(user.signature_link_details)) {
+        for (let i = 0; i < user.signature_link_details.length; i++) {
+          user.signature_link_details[i] =
+            await decryptStringByChar(
+              user.signature_link_details[i]
+            );
+        }
+      }
+    }
+
+    return result;
+
+  } catch (err) {
+    throw err;
+  }
 };
 
 /**
@@ -343,12 +464,82 @@ exports.changeStatus = async (data) => {
  * Search User
  */
 exports.search = async (data) => {
-  return await repository.list(
-    1,
-    100,
-    data.search || "",
-    data.status || ""
-  );
+  const result = await repository.search(data.search);
+
+  for (const user of result) {
+
+    user.prefix = user.prefix
+      ? await decryptStringByChar(user.prefix)
+      : "";
+
+    user.first_name = user.first_name
+      ? await decryptStringByChar(user.first_name)
+      : "";
+
+    user.middle_name = user.middle_name
+      ? await decryptStringByChar(user.middle_name)
+      : "";
+
+    user.last_name = user.last_name
+      ? await decryptStringByChar(user.last_name)
+      : "";
+
+    user.full_name = user.full_name
+      ? await decryptStringByChar(user.full_name)
+      : "";
+
+    user.nick_name = user.nick_name
+      ? await decryptStringByChar(user.nick_name)
+      : "";
+
+    user.gender = user.gender
+      ? await decryptStringByChar(user.gender)
+      : "";
+
+    user.user_name = user.user_name
+      ? await decryptStringByChar(user.user_name)
+      : "";
+
+    if (Array.isArray(user.phone_details)) {
+      for (const phone of user.phone_details) {
+        if (phone.phone_no) {
+          phone.phone_no = await decryptStringByChar(
+            phone.phone_no
+          );
+        }
+      }
+    }
+
+    if (Array.isArray(user.email_details)) {
+      for (const email of user.email_details) {
+        if (email.email_id) {
+          email.email_id = await decryptStringByChar(
+            email.email_id
+          );
+        }
+      }
+    }
+
+    if (Array.isArray(user.profile_image_link_details)) {
+      user.profile_image_link_details =
+        await Promise.all(
+          user.profile_image_link_details.map(link =>
+            decryptStringByChar(link)
+          )
+        );
+    }
+
+    if (Array.isArray(user.signature_link_details)) {
+      user.signature_link_details =
+        await Promise.all(
+          user.signature_link_details.map(link =>
+            decryptStringByChar(link)
+          )
+        );
+    }
+  }
+
+  return result;
 };
 
 /**

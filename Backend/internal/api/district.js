@@ -5,67 +5,20 @@ const repository = require("../repository/district");
  */
 exports.add = async (data) => {
   try {
-    if (!data.district_id) {
-      throw new Error("District Id is required.");
-    }
+    const result = await repository.addDistrict(req.body);
 
-    if (!data.district_name) {
-      throw new Error("District Name is required.");
-    }
-
-    if (!data.state_id) {
-      throw new Error("State is required.");
-    }
-
-    // Check State Exists
-    const stateExists = await repository.stateExists(data.state_id);
-
-    if (!stateExists) {
-      throw new Error("Selected State does not exist.");
-    }
-
-    // Duplicate District Id
-    const districtById = await repository.findByDistrictId(
-      data.district_id
-    );
-
-    if (
-      districtById &&
-      (!data._id || districtById._id.toString() !== data._id)
-    ) {
-      throw new Error("District Id already exists.");
-    }
-
-    // Duplicate District Name
-    const districtByName = await repository.findByDistrictName(
-      data.district_name
-    );
-
-    if (
-      districtByName &&
-      (!data._id || districtByName._id.toString() !== data._id)
-    ) {
-      throw new Error("District Name already exists.");
-    }
-
-    data.updated_date_time = new Date();
-
-    if (!data._id) {
-      data.created_date_time = new Date();
-    }
-
-    const id = await repository.addDistrict(data);
-
-    return {
-      message: data._id
-        ? "District Updated Successfully."
-        : "District Added Successfully.",
-      data: {
-        _id: id,
-      },
-    };
+    return res.status(200).json({
+      success: true,
+      message: result.message,
+      data: result.data,
+    });
   } catch (error) {
-    throw error;
+    console.error("District Add Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Internal Server Error",
+    });
   }
 };
 
