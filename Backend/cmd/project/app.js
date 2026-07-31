@@ -22,11 +22,25 @@ app.use(
 );
 const captureRequestInfo = require("../../pkg/utils/middleware");
 app.use(captureRequestInfo);
+
+const tokenRoutes = require("../../api/v1/token");
+app.use("/api/v1", tokenRoutes);
+
 const userDataRoutes = require("../../api/v1/user");
 app.use("/api/v1", userDataRoutes);
 
 const typesOfCrimeRoutes = require("../../api/v1/typesOfCrime");
 app.use("/api/v1", typesOfCrimeRoutes); 
+
+const stateRoutes = require("../../api/v1/state");
+app.use("/api/v1", stateRoutes);
+
+const districtRoutes = require("../../api/v1/district");
+app.use("/api/v1", districtRoutes);
+
+
+const policeStationRoutes = require("../../api/v1/policeStation");
+app.use("/api/v1", policeStationRoutes);
 
 
 const uploadsPath = path.join(__dirname, "../../web/uploads");

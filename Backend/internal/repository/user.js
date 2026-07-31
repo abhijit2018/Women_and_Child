@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const { add } = require("../../pkg/utils/common");
 const { getDynamicModel } = require("../../pkg/utils/project_model");
 const { userDataSchema } = require("../model/user");
+const { buildSearchQuery } = require('../../pkg/utils/encrypt_decrypt');
 
 const COLLECTION_NAME = "user";
 
@@ -25,10 +26,7 @@ exports.addUser = async (data) => {
 exports.findById = async (_id) => {
     const Model = UserModel();
 
-    return await Model.findById(_id)
-        .populate("present_address_id")
-        .populate("permanent_address_id")
-        .lean();
+    return await Model.findById(_id).lean();
 };
 
 /**
@@ -37,9 +35,9 @@ exports.findById = async (_id) => {
 exports.findByUserName = async (user_name) => {
     const Model = UserModel();
 
-    return await Model.findOne({
-        user_name: user_name
-    });
+    const query = await buildSearchQuery("user_name", user_name);
+
+    return await Model.findOne(query).lean();
 };
 
 /**
@@ -48,20 +46,25 @@ exports.findByUserName = async (user_name) => {
 exports.findByPhone = async (phone_no) => {
     const Model = UserModel();
 
-    return await Model.findOne({
-        "phone_details.phone_no": phone_no
-    });
-};
+    const query = await buildSearchQuery(
+        "phone_details.phone_no",
+        phone_no
+    );
 
+    return await Model.findOne(query).lean();
+};
 /**
  * Find User By Email
  */
 exports.findByEmail = async (email_id) => {
     const Model = UserModel();
 
-    return await Model.findOne({
-        "email_details.email_id": email_id
-    });
+    const query = await buildSearchQuery(
+        "email_details.email_id",
+        email_id
+    );
+
+    return await Model.findOne(query).lean();
 };
 
 /**
@@ -79,44 +82,14 @@ exports.list = async (
     const filter = {};
 
     if (search) {
-        filter.$or = [
-            {
-                first_name: {
-                    $regex: search,
-                    $options: "i"
-                }
-            },
-            {
-                last_name: {
-                    $regex: search,
-                    $options: "i"
-                }
-            },
-            {
-                full_name: {
-                    $regex: search,
-                    $options: "i"
-                }
-            },
-            {
-                user_name: {
-                    $regex: search,
-                    $options: "i"
-                }
-            },
-            {
-                "phone_details.phone_no": {
-                    $regex: search,
-                    $options: "i"
-                }
-            },
-            {
-                "email_details.email_id": {
-                    $regex: search,
-                    $options: "i"
-                }
-            }
-        ];
+    filter.$or = [
+        await buildSearchQuery("first_name", search),
+        await buildSearchQuery("last_name", search),
+        await buildSearchQuery("full_name", search),
+        await buildSearchQuery("user_name", search),
+        await buildSearchQuery("phone_details.phone_no", search),
+        await buildSearchQuery("email_details.email_id", search)
+    ];
     }
 
     if (status) {
@@ -234,4 +207,29 @@ exports.inactiveUsers = async () => {
     return await Model.countDocuments({
         status: "Inactive"
     });
+};
+
+exports.search = async (search, status = "") => {
+    const Model = UserModel();
+
+    const filter = {};
+
+    if (search) {
+        filter.$or = [
+            await buildSearchQuery("first_name", search),
+            await buildSearchQuery("last_name", search),
+            await buildSearchQuery("full_name", search),
+            await buildSearchQuery("user_name", search),
+            await buildSearchQuery("phone_details.phone_no", search),
+            await buildSearchQuery("email_details.email_id", search)
+        ];
+    }
+
+    if (status) {
+        filter.status = status;
+    }
+
+    return await Model.find(filter)
+        .sort({ created_date_time: -1 })
+        .lean();
 };

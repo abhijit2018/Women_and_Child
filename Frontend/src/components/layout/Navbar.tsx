@@ -31,7 +31,7 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Helplines', to: '/rights/helplines' },
     ],
   },
-  { label: 'File a Complaint', to: '/get-support' },
+  { label: 'File a Complaint', to: '/onlinecomplaints' },
   {
     label: 'Services',
     children: [

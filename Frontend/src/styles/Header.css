@@ -27,6 +27,19 @@
   flex-shrink: 0;
 }
 
+.site-header__brand:visited,
+.site-header__brand:hover,
+.site-header__brand:focus,
+.site-header__brand:active {
+  text-decoration: none;
+  color: inherit;
+  outline: none;
+}
+
+.site-header__brand:hover .site-header__name {
+  color: var(--color-brand-strong);
+}
+
 /* Left Logo */
 .site-header__logo {
   width: 96px;
@@ -82,7 +95,7 @@
    Mobile
 =========================== */
 
-@media (max-width: 560px) {
+/* @media (max-width: 560px) {
 
   .site-header__logo {
     width: 64px;
@@ -113,4 +126,120 @@
     padding: 10px 20px;
     font-size: 0.9rem;
   }
+} */
+
+/* ---------------------
+   Large Tablet
+---------------------- */
+
+@media (max-width:1100px) {
+
+  .site-header__name {
+    font-size: 1.35rem;
+  }
+
+  .site-header__logo,
+  .site-header__partner-logo {
+    width: 72px;
+    height: 88px;
+  }
+
+}
+
+/* ---------------------
+   Tablet
+---------------------- */
+
+@media (max-width:900px) {
+
+  .site-header {
+    height: auto;
+    padding: 12px 0;
+  }
+
+  .site-header__inner {
+
+    flex-direction: column;
+
+    justify-content: center;
+
+    gap: 16px;
+  }
+
+  .site-header__brand {
+
+    justify-content: center;
+
+    text-align: center;
+  }
+
+  .site-header__divider {
+
+    display: none;
+  }
+
+  .site-header__name {
+
+    font-size: 1.3rem;
+  }
+
+  .site-header__right {
+
+    justify-content: center;
+  }
+
+}
+
+/* ---------------------
+   Mobile
+---------------------- */
+
+@media (max-width:600px) {
+
+  .site-header__logo {
+
+    width: 60px;
+    height: 72px;
+  }
+
+  .site-header__partner-logo {
+
+    display: none;
+  }
+
+  .site-header__name {
+
+    font-size: 1rem;
+  }
+
+  .site-header__right .btn {
+
+    padding: 8px 18px;
+    font-size: .9rem;
+  }
+
+}
+
+/* ---------------------
+   Small Mobile
+---------------------- */
+
+@media (max-width:420px) {
+
+  .site-header__brand {
+
+    gap: 10px;
+  }
+
+  .site-header__logo {
+
+    width: 52px;
+    height: 64px;
+  }
+
+  .site-header__name {
+
+    font-size: .9rem;
+  }
+
 }
