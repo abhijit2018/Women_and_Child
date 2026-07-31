@@ -1,0 +1,53 @@
+.featureCard {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    padding: 12px 14px;
+
+    width: 100%;
+    max-width: 340px;
+
+    background: #fff;
+
+    border-radius: 16px;
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+
+    transition: all 0.3s ease;
+}
+
+.featureCard:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(90, 42, 216, 0.15);
+}
+
+.iconCircle {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #5a2ad8;
+    color: white;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    flex-shrink: 0;
+}
+
+.featureCard h3 {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    color: #2b2357;
+}
+
+.featureCard p {
+    font-size: 12px;
+    color: #666;
+    line-height: 18px;
+    margin: 0;
+}
