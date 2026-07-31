@@ -1,12 +1,12 @@
-const repository = require("../repository/district");
-const { generateToken } = require("../../pkg/utils/token");
+const districtService = require("../service/district");
+
 /**
  * Add / Update District
  */
-exports.add = async (data) => {
-  try {
-    const result = await repository.addDistrict(req.body);
 
+exports.add = async (req, res) => {
+  try {
+    const result = await districtService.add(req.body);
     return res.status(200).json({
       success: true,
       message: result.message,
@@ -42,18 +42,22 @@ exports.getById = async (data) => {
 /**
  * District Listing
  */
-exports.list = async (data) => {
-  const page = Number(data.page) || 1;
-  const limit = Number(data.limit) || 10;
-  const search = data.search || "";
-  const status = data.status || "";
+exports.list = async (req, res) => {
+  try {
+    const result = await districtService.list(req.body);
 
-  return await repository.list(
-    page,
-    limit,
-    search,
-    status
-  );
+    return res.status(200).json({
+      success: true,
+      data: result,
+    });
+  } catch (error) {
+    console.error("District List Error:", error);
+
+    return res.status(500).json({
+      success: false,
+      message: error.message || "Internal Server Error",
+    });
+  }
 };
 
 /**
