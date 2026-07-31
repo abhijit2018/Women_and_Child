@@ -7,7 +7,6 @@ const districtService = require("../service/district");
 exports.add = async (req, res) => {
   try {
     const result = await districtService.add(req.body);
-
     return res.status(200).json({
       success: true,
       message: result.message,
