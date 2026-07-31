@@ -1,5 +1,5 @@
 const repository = require("../repository/district");
-
+const { generateToken } = require("../../pkg/utils/token");
 /**
  * Add / Update District
  */

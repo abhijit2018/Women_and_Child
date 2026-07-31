@@ -85,6 +85,32 @@ async function buildSearchQuery(field, text) {
   };
 }
 
+async function encryptFields(obj, fields) {
+  const result = { ...obj };
+  for (const field of fields) {
+    if (result[field] !== undefined && result[field] !== null && result[field] !== '') {
+      result[field] = await encryptStringByChar(String(result[field]));
+    }
+  }
+  return result;
+}
+
+async function decryptFields(obj, fields) {
+  if (!obj) return obj;
+  const plainObj = obj.toObject ? obj.toObject() : obj;
+  const result = { ...plainObj };
+  for (const field of fields) {
+    if (result[field]) {
+      try {
+        result[field] = await decryptStringByChar(result[field]);
+      } catch {
+        // leave as-is if it can't be decrypted
+      }
+    }
+  }
+  return result;
+}
+
 async function decryptObject(obj, skipFields = ['_id', 'selected_date_time', 'created_date_time', '__v', 'createdAt', 'updatedAt']) {
   if (!obj) return null;
   const plainObj = obj.toObject ? obj.toObject() : obj;
@@ -111,5 +137,7 @@ module.exports = {
   encryptStringByChar,
   decryptStringByChar,
   buildSearchQuery,
-  decryptObject
+  decryptObject,
+  encryptFields,
+  decryptFields, 
 };

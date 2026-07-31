@@ -59,11 +59,9 @@ exports.findOne = async (filter, collection_name, dataSchema) => {
 
     return await Model.findOne(filter);
 
-};
+};   
 
-/**
- * Find
- */
+
 exports.find = async (
     filter,
     collection_name,

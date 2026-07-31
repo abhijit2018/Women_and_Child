@@ -4,11 +4,11 @@ const districtSchema = new mongoose.Schema(
   {
     district_id: { type: String, required: true },
     district_name: { type: String, required: true },
-    state_id: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: true,
-      ref: "state"
-    },
+    // state_id: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    //   ref: "state"
+    // },
     status: { type: String, default: "Active" },
     selected_date_time: Date,
     created_user_id: { type: mongoose.Schema.Types.ObjectId, ref: "user" },

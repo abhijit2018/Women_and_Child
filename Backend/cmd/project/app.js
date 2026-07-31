@@ -22,6 +22,10 @@ app.use(
 );
 const captureRequestInfo = require("../../pkg/utils/middleware");
 app.use(captureRequestInfo);
+
+const tokenRoutes = require("../../api/v1/token");
+app.use("/api/v1", tokenRoutes);
+
 const userDataRoutes = require("../../api/v1/user");
 app.use("/api/v1", userDataRoutes);
 
