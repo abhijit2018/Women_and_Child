@@ -118,6 +118,7 @@ const VICTIM_FIELDS_LINKED_TO_COMPLAINANT: Array<{
 ];
 
 function RegisterForm() {
+  
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [status, setStatus] = useState<FormStatus>('idle');
