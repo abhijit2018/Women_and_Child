@@ -12,9 +12,9 @@ const HomePage = () => {
 
       <Slider />
 
-      {/* <Banner />
+    <Banner />
 
-      <FeaturedSection /> */}
+      <FeaturedSection /> 
 
     </PageContainer>
   );

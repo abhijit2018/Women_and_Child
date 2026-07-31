@@ -1,5 +1,7 @@
 // src/routes/routeConstants.ts
 
+import AdminLogin from "@/features/home/pages/AdminLogin";
+
 export const ROUTES = {
   HOME: "/",
 
@@ -16,6 +18,9 @@ export const ROUTES = {
   PROFILE: "/profile",
 
   SETTINGS: "/settings",
+  
+  AdminLogin:"/adminLogin",
 
   NOT_FOUND: "*",
+
 };
