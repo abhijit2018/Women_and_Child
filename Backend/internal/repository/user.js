@@ -26,10 +26,7 @@ exports.addUser = async (data) => {
 exports.findById = async (_id) => {
     const Model = UserModel();
 
-    return await Model.findById(_id)
-        .populate("present_address_id")
-        .populate("permanent_address_id")
-        .lean();
+    return await Model.findById(_id).lean();
 };
 
 /**
@@ -219,12 +216,12 @@ exports.search = async (search, status = "") => {
 
     if (search) {
         filter.$or = [
-            { first_name: buildSearchQuery(search) },
-            { last_name: buildSearchQuery(search) },
-            { full_name: buildSearchQuery(search) },
-            { user_name: buildSearchQuery(search) },
-            { "phone_details.phone_no": buildSearchQuery(search) },
-            { "email_details.email_id": buildSearchQuery(search) }
+            await buildSearchQuery("first_name", search),
+            await buildSearchQuery("last_name", search),
+            await buildSearchQuery("full_name", search),
+            await buildSearchQuery("user_name", search),
+            await buildSearchQuery("phone_details.phone_no", search),
+            await buildSearchQuery("email_details.email_id", search)
         ];
     }
 
