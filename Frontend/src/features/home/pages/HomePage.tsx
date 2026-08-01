@@ -14,7 +14,7 @@ const HomePage = () => {
 
     <Banner />
 
-      {/* <FeaturedSection />  */}
+      <FeaturedSection /> 
 
     </PageContainer>
   );
