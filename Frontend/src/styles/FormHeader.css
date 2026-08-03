@@ -2,7 +2,7 @@
   background: var(--color-surface);
   border-bottom: 1px solid var(--color-border);
   box-shadow: var(--shadow-header);
-  margin-top: 200px; 
+  margin-top: 185px; 
 }
 
 .form-header__inner {

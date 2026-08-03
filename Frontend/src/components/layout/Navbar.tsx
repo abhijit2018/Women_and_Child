@@ -31,15 +31,16 @@ const NAV_ITEMS: NavItem[] = [
       { label: 'Helplines', to: '/rights/helplines' },
     ],
   },
-  { label: 'File a Complaint', to: '/onlinecomplaints' },
-  {
-    label: 'Services',
+  // { label: 'File a Complaint', to: '/onlinecomplaints' },
+     {
+    label: 'File a Complaint',
     children: [
-      { label: 'Counseling', to: '/services/counseling' },
-      { label: 'Legal Aid', to: '/services/legal-aid' },
-      { label: 'Shelter Homes', to: '/services/shelter' },
+      { label: 'Missing Women or Child', to: '/onlinecomplaints' },
+      { label: 'Crime againts Women or Child', to: '/onlinecomplaints' },
+      { label: 'Human Trafficking', to: '/onlinecomplaints' },
     ],
   },
+{ label: 'Complaint Status Check', to: '/complaint-status' },
   {
     label: 'Resources',
     children: [
@@ -118,6 +119,7 @@ function NavBar() {
                         <li key={child.label}>
                           <Link
                             to={child.to}
+                            state={{ complaintType: child.label }}
                             className="sub-nav__dropdown-link"
                             onClick={() => setOpenIndex(null)}
                           >

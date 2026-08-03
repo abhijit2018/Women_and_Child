@@ -19,8 +19,8 @@
   margin: 0;
   padding-left: 24px;
   padding-right: 24px;
-  overflow-x: auto;
-  scrollbar-width: none;
+  /* overflow-x: auto;
+  scrollbar-width: none; */
 }
 
 .sub-nav__list::-webkit-scrollbar {

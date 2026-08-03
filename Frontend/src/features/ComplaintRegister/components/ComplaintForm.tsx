@@ -2,9 +2,12 @@
 import { useState, useEffect } from 'react';
 import type { ChangeEvent, FormEvent } from 'react';
 import Button from '../../../components/ui/Button/Button';
-import { validateField, sanitizeText } from '../utils/complaintHelpers';
+import { validateField, sanitizeText} from '../utils/complaintHelpers';
 import type { FieldRules } from '../utils/complaintHelpers';
 import "../../../styles/RegisterForm.css";
+import { useLocation } from 'react-router-dom';
+import FormHeader from './FormHeader';
+import SubmitStatusModal from './SubmitStatusModal';
 
 interface FormValues {
   // Section 1 — Complainant
@@ -119,6 +122,9 @@ const VICTIM_FIELDS_LINKED_TO_COMPLAINANT: Array<{
 
 function RegisterForm() {
 
+  const location = useLocation();
+  const complaintType = location.state?.complaintType;
+
   const [values, setValues] = useState<FormValues>(initialValues);
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [status, setStatus] = useState<FormStatus>('idle');
@@ -147,19 +153,29 @@ function RegisterForm() {
       generateCaptcha();
     }
   }, [status]);
-
+  
   function handleCaptchaInputChange(e: ChangeEvent<HTMLInputElement>) {
-    const value = e.target.value;
-    setCaptchaInput(value);
+  const value = e.target.value;
+  setCaptchaInput(value);
 
-    if (value.trim() === captcha) {
-      setIsCaptchaValid(true);
-      setCaptchaError('');
-    } else {
-      setIsCaptchaValid(false);
-      setCaptchaError(value.trim().length > 0 ? 'Incorrect CAPTCHA. Please try again. / ভুল ক্যাপচা। আবার চেষ্টা করুন।' : '');
-    }
+  const trimmed = value.trim();
+
+  if (trimmed === captcha) {
+    setIsCaptchaValid(true);
+    setCaptchaError('');
+    return;
   }
+
+  setIsCaptchaValid(false);
+
+  const isPartialMatch = trimmed.length > 0 && captcha.startsWith(trimmed);
+
+  setCaptchaError(
+    trimmed.length === 0 || isPartialMatch
+      ? ''
+      : 'Incorrect CAPTCHA. Please try again. / ভুল ক্যাপচা। আবার চেষ্টা করুন।'
+  );
+}
 
   function handleIsVictimChange(nextValue: 'yes' | 'no') {
     setValues((prev) => {
@@ -254,18 +270,16 @@ function RegisterForm() {
   //           </p>
   //         </div>
   //       </main>
-  //       <Footer />
   //     </>
   //   );
   // }
-
   return (
     <>
 
 
       <main className="form-page">
         <div className="form-page__header container">
-          <p>Complaints Registration Form</p>
+          <p>Complaints Registration Form for {complaintType && ` - ${complaintType}`}</p>
         </div>
 
         <div className="container">
@@ -789,7 +803,7 @@ function RegisterForm() {
                   <small>বক্সে প্রদর্শিত লেখাটি হুবহু লিখুন।</small>
                 </label>
 
-                <div className="captcha-row">
+                {/* <div className="captcha-row">
                   <div className="captcha-code">{captcha}</div>
 
                   <button
@@ -806,19 +820,47 @@ function RegisterForm() {
                     value={captchaInput}
                     onChange={handleCaptchaInputChange}
                   />
-                </div>
+                </div> */}
 
-                {captchaError && (
+                {/* {captchaError && (
                   <span className="form-field__error">{captchaError}</span>
-                )}
+                )} */}
+
+                <div className="captcha-row">
+  <div className="captcha-code">{captcha}</div>
+
+  <button type="button" className="captcha-refresh" onClick={generateCaptcha}>
+    ↻
+  </button>
+
+  <input
+    type="text"
+    placeholder="Enter CAPTCHA"
+    value={captchaInput}
+    onChange={handleCaptchaInputChange}
+    className={isCaptchaValid ? 'captcha-input--valid' : ''}
+    aria-invalid={Boolean(captchaError)}
+  />
+
+  {isCaptchaValid && <span className="captcha-success">✓</span>}
+</div>
+
+{captchaError && (
+  <span className="form-field__error" role="alert">
+    {captchaError}
+  </span>
+)}
               </div>
+
 
               {status === 'error' && (
                 <p className="form-card__error" role="alert">
                   Something went wrong. Please try again in a moment.
                 </p>
               )}
-
+  {(status === 'success' || status === 'error') && (
+  <SubmitStatusModal status={status} onClose={() => setStatus('idle')} />
+)}
               {/* Submit */}
 
               <div className="form-submit">
