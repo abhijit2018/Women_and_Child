@@ -10,7 +10,13 @@ function Footer() {
 
       <div className="site-footer__inner">
         <div className="site-footer__brand">
-          <LogoMark size={32} />
+          {/* <LogoMark size={32} /> */}
+          <img
+  src="/images/logo_s.png"
+  alt="Partner Logo"
+  className="site-header__partner-logo"
+  style={{ height: '80px', width: 'auto' }}
+/>
           <span>Women Portal</span>
         </div>
 
@@ -26,7 +32,10 @@ function Footer() {
             24×7 Helpline
           </span>
           <span className="site-footer__helpline-number">
-            1000-000-0000
+            Women - 1091
+          </span>
+            <span className="site-footer__helpline-number">
+            Child - 1098
           </span>
         </div>
       </div>
