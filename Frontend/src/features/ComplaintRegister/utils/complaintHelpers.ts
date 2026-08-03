@@ -58,12 +58,6 @@ export function maxLength(value: string, max: number): boolean {
   return value.trim().length <= max;
 }
 
-/**
- * Strips characters with no legitimate place in plain-text form input,
- * as defense-in-depth against stored-XSS payloads. React already
- * escapes rendered text by default — this is a belt-and-braces extra,
- * not a replacement for proper server-side output encoding.
- */
 export function sanitizeText(value: string): string {
   return value.replace(/[<>]/g, '').trim();
 }
@@ -75,18 +69,74 @@ export type FieldRules = {
   maxLength?: number;
 };
 
-export function validateField(name: string, value: string, rules: FieldRules = {}): string {
+// export function validateField(name: string, value: string, rules: FieldRules = {}): string {
+//   if (rules.required && !isRequired(value)) {
+//     return `${name} is required.`;
+//   }
+//   if (rules.email && value && !isValidEmail(value)) {
+//     return 'Please enter a valid email address.';
+//   }
+//   if (rules.phone && value && !isValidPhone(value)) {
+//     return 'Please enter a valid phone number.';
+//   }
+//   if (rules.maxLength && !maxLength(value, rules.maxLength)) {
+//     return `${name} must be ${rules.maxLength} characters or fewer.`;
+//   }
+//   return '';
+// }
+export const FIELD_LABELS: Record<string, string> = {
+  complainantName: "Complainant Name",
+  complainantAddress: "Complainant Address",
+  complainantDistrict: "Complainant District",
+  complainantPS: "Complainant Police Station",
+  complainantPincode: "Complainant PIN Code",
+  complainantEmail: "Complainant Email",
+  complainantPhone: "Complainant Phone Number",
+  complainantGender: "Complainant Gender",
+
+  isVictim: "Victim Information",
+  victimName: "Victim Name",
+  victimAddress: "Victim Address",
+  victimDistrict: "Victim District",
+  victimPS: "Victim Police Station",
+  victimPincode: "Victim PIN Code",
+  victimEmail: "Victim Email",
+  victimPhone: "Victim Phone Number",
+  victimGender: "Victim Gender",
+  victimDob: "Victim Date of Birth",
+  victimCaste: "Victim Caste",
+  victimDifferentlyAbled: "Differently Abled Status",
+
+  incidentDate: "Incident Date",
+  incidentTime: "Incident Time",
+  placeOfOccurrence: "Place of Occurrence",
+  incidentDetails: "Incident Details",
+
+  consent: "Declaration",
+};
+
+export function validateField(
+  name: string,
+  value: string,
+  rules: FieldRules = {}
+): string {
+  const label = FIELD_LABELS[name] || name;
+
   if (rules.required && !isRequired(value)) {
-    return `${name} is required.`;
+    return `${label} is required.`;
   }
+
   if (rules.email && value && !isValidEmail(value)) {
-    return 'Please enter a valid email address.';
+    return `Please enter a valid ${label.toLowerCase()}.`;
   }
+
   if (rules.phone && value && !isValidPhone(value)) {
-    return 'Please enter a valid phone number.';
+    return `Please enter a valid ${label.toLowerCase()}.`;
   }
+
   if (rules.maxLength && !maxLength(value, rules.maxLength)) {
-    return `${name} must be ${rules.maxLength} characters or fewer.`;
+    return `${label} must be ${rules.maxLength} characters or fewer.`;
   }
+
   return '';
 }
