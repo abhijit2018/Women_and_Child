@@ -17,7 +17,7 @@ function Footer() {
   className="site-header__partner-logo"
   style={{ height: '80px', width: 'auto' }}
 />
-          <span>Women Portal</span>
+          <span>Protection of Women & Children Portal</span>
         </div>
 
         <nav className="site-footer__links" aria-label="Footer Navigation">
