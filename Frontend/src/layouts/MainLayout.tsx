@@ -1,25 +1,18 @@
-// import { Outlet } from "react-router-dom";
-// import Header from "../components/layout/Header";
-// import Footer from "../components/layout/Footer";
 
-// const MainLayout = () => {
-//   return (
-//     <>
-//       <Header />
-//       <Outlet />
-//       <Footer />
-//     </>
-//   );
-// };
 
-// export default MainLayout;
-
-import { Outlet } from "react-router-dom";
+import { Outlet, useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 import Header from "../components/layout/Header";
 import NavBar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 
-const MainLayout = () => {
+function MainLayout() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   return (
     <>
       <Header />
@@ -30,6 +23,6 @@ const MainLayout = () => {
       <Footer />
     </>
   );
-};
+}
 
 export default MainLayout;
